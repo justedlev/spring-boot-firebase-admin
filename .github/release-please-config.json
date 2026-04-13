@@ -1,0 +1,69 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "maven",
+  "initial-version": "0.0.1",
+  "include-v-in-tag": true,
+  "separate-pull-requests": true,
+  "bump-minor-pre-major": true,
+  "skip-snapshot": true,
+  "include-component-in-tag": false,
+  "pull-request-title-pattern": "chore: release v${version}",
+  "pull-request-header": "## 📦 What's Changed",
+  "pull-request-footer": "Thanks to all contributors! 🙌",
+  "extra-label": "type: release",
+  "changelog-path": "CHANGELOG.md",
+  "extra-files": [
+    "README.md"
+  ],
+  "plugins": [
+    {
+      "type": "maven-workspace",
+      "considerAllArtifacts": true
+    }
+  ],
+  "changelog-sections": [
+    {
+      "type": "feat",
+      "section": "🚀 Features"
+    },
+    {
+      "type": "fix",
+      "section": "🐛 Bug Fixes"
+    },
+    {
+      "type": "refactor",
+      "section": "♻️ Refactoring"
+    },
+    {
+      "type": "docs",
+      "section": "📚 Documentation"
+    },
+    {
+      "type": "test",
+      "section": "🧪 Tests"
+    },
+    {
+      "type": "chore",
+      "section": "🧹 Chores",
+      "hidden": true
+    },
+    {
+      "type": "style",
+      "section": "🎨 Code Style"
+    },
+    {
+      "type": "ci",
+      "section": "🔧 CI/CD",
+      "hidden": true
+    },
+    {
+      "type": "build",
+      "section": "⚙️ Build"
+    }
+  ],
+  "packages": {
+    ".": {
+      "component": "spring-boot-firebase-admin"
+    }
+  }
+}

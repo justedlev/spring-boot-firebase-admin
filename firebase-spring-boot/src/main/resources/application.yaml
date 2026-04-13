@@ -1,0 +1,5 @@
+firebase:
+  apps:
+    default:
+      database-url: https://${firebase.apps.default.project-id}-default-rtdb.firebaseio.com
+      credentials: file:${user.home}/.firebase/${firebase.apps.default.project-id}.json
