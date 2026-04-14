@@ -32,4 +32,5 @@ public class FirebaseProperties {
     private Integer readTimeout;
     private Integer writeTimeout;
     private FirebaseAuthProperties auth = new FirebaseAuthProperties();
+    private FirebaseDatabaseProperties db = new FirebaseDatabaseProperties();
 }
