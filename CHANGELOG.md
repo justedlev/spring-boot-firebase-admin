@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 This project uses **[Conventional Commits](https://www.conventionalcommits.org/)** and is powered by *
 *[release-please](https://github.com/googleapis/release-please)**.
 
+## [0.1.0](https://github.com/justedlev/spring-boot-firebase-admin/compare/v0.0.1...v0.1.0) (2026-04-14)
+
+
+### 🚀 Features
+
+* **config:** add more condition on bean creation ([7a3b07c](https://github.com/justedlev/spring-boot-firebase-admin/commit/7a3b07c1116bb1482a3d832d745a32275bdb59a7))
+* **propertis:** add auth property ([4a090fb](https://github.com/justedlev/spring-boot-firebase-admin/commit/4a090fb3985157f1f490dbb6948d524ae4d8db5e))
+* **propertis:** add db property ([8777450](https://github.com/justedlev/spring-boot-firebase-admin/commit/8777450411d72c36e350913677a72e52b9b3c725))
+* **propertis:** add messaging property ([a3e2bf6](https://github.com/justedlev/spring-boot-firebase-admin/commit/a3e2bf6c52da92d9d019d462ac541b15c1be8b47))
+
+
+### 🐛 Bug Fixes
+
+* **config:** add matchIfMissing on FirebaseDatabase bean creation ([c7fe002](https://github.com/justedlev/spring-boot-firebase-admin/commit/c7fe002a6fd9750b1cecf0fc95878717fe67f72f))
+
+
+### ♻️ Refactoring
+
+* **config:** change primitive to wrapper ([30322bb](https://github.com/justedlev/spring-boot-firebase-admin/commit/30322bb75c27b041a919499fab2c96d04fa18811))
+
+
+### 📚 Documentation
+
+* update README.md and add CONTRIBUTING.md ([9c32ae7](https://github.com/justedlev/spring-boot-firebase-admin/commit/9c32ae7cc047aa067233333283105ca39dedc13d))
+
+
+### 🧪 Tests
+
+* add more tests ([fffd2ff](https://github.com/justedlev/spring-boot-firebase-admin/commit/fffd2ff6d3e968b587602a7a89ceaaaa9e6e2c58))
+* update `FirebaseAutoConfigurationTest.java` ([6ad8395](https://github.com/justedlev/spring-boot-firebase-admin/commit/6ad839507b28824c952b5a9ea50db9186191f525))
+
 ## 0.0.1 (2026-04-13)
 
 
