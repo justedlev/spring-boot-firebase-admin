@@ -15,13 +15,16 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ResourceLoader;
 
+import static io.github.justedlev.firebase.config.FirebaseConfigurationProperties.PREFIX;
+
 @AutoConfiguration
-@ConditionalOnBooleanProperty(prefix = FirebaseConfigurationProperties.PREFIX, value = "enabled", matchIfMissing = true)
+@ConditionalOnBooleanProperty(prefix = PREFIX, value = "enabled", matchIfMissing = true)
 @EnableConfigurationProperties(FirebaseConfigurationProperties.class)
 public class FirebaseAutoConfiguration {
     @Bean
@@ -53,18 +56,22 @@ public class FirebaseAutoConfiguration {
 
     @Bean
     @ConditionalOnBean(name = "defaultFirebaseApp")
+    @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.db", value = "enabled", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = PREFIX, value = "apps.default.database-url")
     public FirebaseDatabase defaultFirebaseDatabase(FirebaseApp firebaseApp) {
         return FirebaseDatabase.getInstance(firebaseApp);
     }
 
     @Bean
     @ConditionalOnBean(name = "defaultFirebaseApp")
+    @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.auth", value = "enabled")
     public FirebaseAuth defaultFirebaseAuth(FirebaseApp firebaseApp) {
         return FirebaseAuth.getInstance(firebaseApp);
     }
 
     @Bean
     @ConditionalOnBean(name = "defaultFirebaseApp")
+    @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.messaging", value = "enabled")
     public FirebaseMessaging defaultFirebaseMessaging(FirebaseApp firebaseApp) {
         return FirebaseMessaging.getInstance(firebaseApp);
     }
