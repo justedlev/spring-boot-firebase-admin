@@ -28,7 +28,10 @@ public class FirebaseProperties {
     private String storageBucket;
     private String serviceAccountId;
     private String credentials;
-    private int connectTimeout;
-    private int readTimeout;
-    private int writeTimeout;
+    private Integer connectTimeout;
+    private Integer readTimeout;
+    private Integer writeTimeout;
+    private FirebaseAuthProperties auth = new FirebaseAuthProperties();
+    private FirebaseDatabaseProperties db = new FirebaseDatabaseProperties();
+    private FirebaseMessagingProperties messaging = new FirebaseMessagingProperties();
 }
