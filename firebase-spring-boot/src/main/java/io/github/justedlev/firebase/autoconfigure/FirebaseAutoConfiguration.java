@@ -56,7 +56,7 @@ public class FirebaseAutoConfiguration {
 
     @Bean
     @ConditionalOnBean(name = "defaultFirebaseApp")
-    @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.db", value = "enabled")
+    @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.db", value = "enabled", matchIfMissing = true)
     @ConditionalOnProperty(prefix = PREFIX, value = "apps.default.database-url")
     public FirebaseDatabase defaultFirebaseDatabase(FirebaseApp firebaseApp) {
         return FirebaseDatabase.getInstance(firebaseApp);
