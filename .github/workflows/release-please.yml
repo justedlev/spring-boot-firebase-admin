@@ -4,8 +4,11 @@ on:
   push:
     branches: [ main ]
     paths-ignore:
-      - .github
-      - *.md
+      - ".github"
+      - "docs/**"
+      - ".gitattributes"
+      - ".gitignore"
+      - "**.md"
   release:
     types: [ created ]
   workflow_dispatch:
