@@ -19,7 +19,7 @@ defaults, and flexible credential management.
 
 | Version | Spring Boot | Status  |
 |---------|-------------|---------|
-| 0.0.x   | 3.5.x       | ⚠️ Beta |
+| 0.x.x   | 3.5.x       | ⚠️ Beta |
 | 1.x.x   | 2.7.x       | N/A     |
 | 2.x.x   | 3.5.x       | N/A     |
 | 3.x.x   | 4.x.x       | N/A     |
@@ -29,13 +29,11 @@ defaults, and flexible credential management.
 - ✅ Auto-configures FirebaseApp
 - ✅ Provides ready-to-use beans:
   - FirebaseAuth
-  - Firestore
+  - FirebaseDatabase
   - FirebaseMessaging
 - ✅ Supports multiple credential sources:
   - classpath
   - filesystem
-  - Base64 (for CI/CD)
-  - Application Default Credentials
 - ✅ Modular and extensible design
 - ✅ Works with multi-module Spring Boot projects
 - ✅ Minimal configuration required
@@ -68,7 +66,7 @@ firebase:
       project-id: <your-project-id>
       auth:
         enabled: true
-      firestore:
+      db:
         enabled: true
       messaging:
         enabled: false
@@ -94,11 +92,9 @@ public class DemoController {
 ### 📚 Configuration Reference
 
 > [!WARNING]
->
 > Property marked `*` is required
 
 > [!NOTE]
->
 > By default, you can use the predefined FirebaseApp properties using `firebase.apps.default.*`
 
 | Property                                                   | Description                                                                                   | Default                                                                   |
@@ -114,7 +110,13 @@ public class DemoController {
 | `firebase.apps.<app-name>.connect-timeout`                 | Connect timeout                                                                               | -                                                                         |
 | `firebase.apps.<app-name>.read-timeout`                    | Read timeout                                                                                  | -                                                                         |
 | `firebase.apps.<app-name>.write-timeout`                   | Write timeout                                                                                 | -                                                                         |
-| `firebase.apps.<app-name>.`                                |                                                                                               | -                                                                         |
+| `firebase.apps.<app-name>.auth.enabled`                    | Enabling FirebaseAuth bean                                                                    | `false`                                                                   |
+| `firebase.apps.<app-name>.db.enabled`                      | Enabling FirebaseDatabase bean                                                                | `false`                                                                   |
+| `firebase.apps.<app-name>.messaging.enabled`               | Enabling FirebaseMessaging bean                                                               | `false`                                                                   |
+
+> [!TIP]
+> When `firebase.apps.<app-name>.database-url` is configured,
+> the `firebase.apps.<app-name>.db.enabled` property is not required.
 
 ### 🤝 Contributing
 
