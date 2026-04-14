@@ -15,6 +15,13 @@
   "extra-files": [
     "README.md"
   ],
+  "exclude-paths": [
+    ".github",
+    "docs",
+    ".gitattributes",
+    ".gitignore",
+    "*.md"
+  ],
   "plugins": [
     {
       "type": "maven-workspace",
