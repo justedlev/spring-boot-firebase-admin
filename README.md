@@ -1,5 +1,6 @@
 <img src="./docs/assets/logo.svg" alt="logo" align="right" height="96" width="96"/>
-<h1>Spring Boot Starter Firebase Admin</h1>
+
+# Spring Boot Firebase Admin 
 
 [![language](https://img.shields.io/badge/Java%2017-e6892e.svg?logo=openjdk&logoColor=white)](https://github.com/justedlev/bridgewayhub)
 [![framework](https://img.shields.io/badge/Spring%20Boot%20-6DB33F.svg?logo=springboot&logoColor=white)](https://docs.spring.io/spring-boot/index.html)
