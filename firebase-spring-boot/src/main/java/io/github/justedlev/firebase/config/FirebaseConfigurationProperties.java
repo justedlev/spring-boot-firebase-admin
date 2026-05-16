@@ -30,9 +30,4 @@ public class FirebaseConfigurationProperties {
     public FirebaseProperties getDefaultApp() {
         return apps.get(DEFAULT_APP_NAME);
     }
-
-    public FirebaseConfigurationProperties setDefaultApp(FirebaseProperties properties) {
-        apps.put(DEFAULT_APP_NAME, properties);
-        return this;
-    }
 }
