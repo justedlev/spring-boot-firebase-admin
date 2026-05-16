@@ -1,7 +1,9 @@
 package io.github.justedlev.firebase;
 
+import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.cloud.StorageClient;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 import io.github.justedlev.firebase.autoconfigure.FirebaseAutoConfiguration;
@@ -74,31 +76,19 @@ class FirebaseAutoConfigurationTest {
                 .withPropertyValues(
                         "firebase.enabled=true",
                         "firebase.apps.default.project-id=default-project",
-                        "firebase.apps.default.database-url=http://localhost:0",
+                        "firebase.apps.default.db.url=http://localhost:0",
                         "firebase.apps.default.auth.enabled=true",
-                        "firebase.apps.default.messaging.enabled=true"
+                        "firebase.apps.default.messaging.enabled=true",
+                        "firebase.apps.default.storage.bucket=default-bucket",
+                        "firebase.apps.default.firestore.enabled=true"
                 )
                 .run(context -> {
                     assertThat(context).hasSingleBean(FirebaseApp.class);
                     assertThat(context).hasSingleBean(FirebaseDatabase.class);
                     assertThat(context).hasSingleBean(FirebaseAuth.class);
                     assertThat(context).hasSingleBean(FirebaseMessaging.class);
-                });
-    }
-
-    @Test
-    void whenDatabaseUrlIsSet_thenFirebaseDatabaseBeanCreated() {
-        new ApplicationContextRunner()
-                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
-                .withUserConfiguration(FirebaseTestConfiguration.class)
-                .withPropertyValues(
-                        "firebase.enabled=true",
-                        "firebase.apps.default.project-id=default-project",
-                        "firebase.apps.default.database-url=http://localhost:0"
-                )
-                .run(context -> {
-                    assertThat(context).hasSingleBean(FirebaseApp.class);
-                    assertThat(context).hasSingleBean(FirebaseDatabase.class);
+                    assertThat(context).hasSingleBean(StorageClient.class);
+                    assertThat(context).hasSingleBean(Firestore.class);
                 });
     }
 
