@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.google.firebase.FirebaseApp.DEFAULT_APP_NAME;
@@ -21,11 +20,8 @@ import static com.google.firebase.FirebaseApp.DEFAULT_APP_NAME;
 public class FirebaseProperties {
     @lombok.Builder.Default
     private String name = DEFAULT_APP_NAME;
-    @lombok.Builder.Default
-    private Map<String, Object> databaseAuthVariableOverride = new HashMap<>();
-    private String databaseUrl;
+    private Map<String, Object> databaseAuthVariableOverride;
     private String projectId;
-    private String storageBucket;
     private String serviceAccountId;
     private String credentials;
     private Integer connectTimeout;
@@ -34,4 +30,6 @@ public class FirebaseProperties {
     private FirebaseAuthProperties auth = new FirebaseAuthProperties();
     private FirebaseDatabaseProperties db = new FirebaseDatabaseProperties();
     private FirebaseMessagingProperties messaging = new FirebaseMessagingProperties();
+    private StorageProperties storage = new StorageProperties();
+    private FirestoreProperties firestore = new FirestoreProperties();
 }
