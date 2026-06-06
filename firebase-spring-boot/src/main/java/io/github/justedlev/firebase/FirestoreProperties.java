@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FirebaseDatabaseProperties {
+public class FirestoreProperties {
     private boolean enabled;
-    private String url;
 }

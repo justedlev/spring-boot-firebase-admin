@@ -9,9 +9,15 @@ public record DefaultFirebaseOptionsFactory(FirebaseCredentialsFactory credsFact
         var mapper = PropertyMapper.get().alwaysApplyingWhenNonNull();
         var ops = FirebaseOptions.builder();
         mapper.from(properties.getDatabaseAuthVariableOverride()).to(ops::setDatabaseAuthVariableOverride);
-        mapper.from(properties.getDatabaseUrl()).to(ops::setDatabaseUrl);
+        mapper.from(properties.getDb())
+                .as(FirebaseDatabaseProperties::getUrl)
+                .whenHasText()
+                .to(ops::setDatabaseUrl);
         mapper.from(properties.getProjectId()).to(ops::setProjectId);
-        mapper.from(properties.getStorageBucket()).to(ops::setStorageBucket);
+        mapper.from(properties.getStorage())
+                .as(StorageProperties::getBucket)
+                .whenHasText()
+                .to(ops::setStorageBucket);
         mapper.from(properties.getServiceAccountId()).to(ops::setServiceAccountId);
         mapper.from(credsFactory.create(properties)).to(ops::setCredentials);
         mapper.from(properties.getConnectTimeout()).to(ops::setConnectTimeout);
