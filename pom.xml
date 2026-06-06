@@ -65,7 +65,6 @@
 
         <!--   deps versions   -->
         <firebase-admin.version>9.9.0</firebase-admin.version>
-        <spring-boot.version>3.5.0</spring-boot.version>
         <spring-boot.version>3.5.14</spring-boot.version>
     </properties>
 
