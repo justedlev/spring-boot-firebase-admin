@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 This project uses **[Conventional Commits](https://www.conventionalcommits.org/)** and is powered by *
 *[release-please](https://github.com/googleapis/release-please)**.
 
+## [0.2.0](https://github.com/justedlev/spring-boot-firebase-admin/compare/v0.1.0...v0.2.0) (2026-06-06)
+
+
+### 🚀 Features
+
+* **config:** add beans init ([41bdef4](https://github.com/justedlev/spring-boot-firebase-admin/commit/41bdef45b86da0d6b07f00e8e90f27afe579109f))
+* **config:** use google application default creds on empty property ([8dbb323](https://github.com/justedlev/spring-boot-firebase-admin/commit/8dbb3232dfbde8772c62a2d35071416b7ac17f80))
+
+
+### 🐛 Bug Fixes
+
+* **config:** fail on NPE ([0f8cbba](https://github.com/justedlev/spring-boot-firebase-admin/commit/0f8cbbae6637829a964e4fa4ad91a3fb550f16e2))
+
+
+### ♻️ Refactoring
+
+* add `[@lombok](https://github.com/lombok).Builder.Default` on fields ([8e048b1](https://github.com/justedlev/spring-boot-firebase-admin/commit/8e048b1f44c09d019672bace4fd3fbd9c82f8bca))
+* **config:** improve code ([570ae7f](https://github.com/justedlev/spring-boot-firebase-admin/commit/570ae7fd8f296ad1764b3802250f9a0e2adf5edd))
+* **config:** remove unused `io.github.justedlev.firebase.config.FirebaseConfigurationProperties#setDefaultApp` method ([000fcbe](https://github.com/justedlev/spring-boot-firebase-admin/commit/000fcbecfce9424ebe8db84b43eb9bb28158b6ff))
+* **config:** rename .imports ([1053e86](https://github.com/justedlev/spring-boot-firebase-admin/commit/1053e863c8b4f0e8abc1e58a445afa8bebca6190))
+* **config:** use `gcloud` default cred path ([14370f3](https://github.com/justedlev/spring-boot-firebase-admin/commit/14370f39bee8a5116dcd39ab30815cc31f1acdc7))
+
+
+### 📚 Documentation
+
+* update README.md ([dde1b41](https://github.com/justedlev/spring-boot-firebase-admin/commit/dde1b412603b04e3a1eba7f8cc1635ffbd1338db))
+* update README.md ([b5eb89f](https://github.com/justedlev/spring-boot-firebase-admin/commit/b5eb89f645798fd3bab5a7561ce195cc4a9dc316))
+* Update README.md ([50d4fc1](https://github.com/justedlev/spring-boot-firebase-admin/commit/50d4fc1db02f5f84806c2b143ff1e8264ca0b897))
+
 ## [0.1.0](https://github.com/justedlev/spring-boot-firebase-admin/compare/v0.0.1...v0.1.0) (2026-04-14)
 
 
