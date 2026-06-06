@@ -1,7 +1,10 @@
 package io.github.justedlev.firebase.autoconfigure;
 
+import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.cloud.FirestoreClient;
+import com.google.firebase.cloud.StorageClient;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 import io.github.justedlev.firebase.DefaultFirebaseCredentialsFactory;
@@ -57,7 +60,7 @@ public class FirebaseAutoConfiguration {
     @Bean
     @ConditionalOnBean(name = "defaultFirebaseApp")
     @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.db", value = "enabled", matchIfMissing = true)
-    @ConditionalOnProperty(prefix = PREFIX, value = "apps.default.database-url")
+    @ConditionalOnProperty(prefix = PREFIX, value = "apps.default.db.url")
     public FirebaseDatabase defaultFirebaseDatabase(FirebaseApp firebaseApp) {
         return FirebaseDatabase.getInstance(firebaseApp);
     }
@@ -74,5 +77,20 @@ public class FirebaseAutoConfiguration {
     @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.messaging", value = "enabled")
     public FirebaseMessaging defaultFirebaseMessaging(FirebaseApp firebaseApp) {
         return FirebaseMessaging.getInstance(firebaseApp);
+    }
+
+    @Bean
+    @ConditionalOnBean(name = "defaultFirebaseApp")
+    @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.storage", value = "enabled", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = PREFIX, value = "apps.default.storage.bucket")
+    public StorageClient defaultStorageClient(FirebaseApp firebaseApp) {
+        return StorageClient.getInstance(firebaseApp);
+    }
+
+    @Bean
+    @ConditionalOnBean(name = "defaultFirebaseApp")
+    @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.firestore", value = "enabled")
+    public Firestore defaultFirestore(FirebaseApp firebaseApp) {
+        return FirestoreClient.getFirestore(firebaseApp);
     }
 }
