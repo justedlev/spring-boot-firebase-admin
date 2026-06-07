@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 This project uses **[Conventional Commits](https://www.conventionalcommits.org/)** and is powered by *
 *[release-please](https://github.com/googleapis/release-please)**.
 
+## [0.2.1](https://github.com/justedlev/spring-boot-firebase-admin/compare/v0.2.0...v0.2.1) (2026-06-07)
+
+
+### 🐛 Bug Fixes
+
+* **build:** remove extra `spring-boot.version` property ([f7b815e](https://github.com/justedlev/spring-boot-firebase-admin/commit/f7b815eb511eb48d3f97e48be91a2c372c4babd6))
+
+
+### ⚙️ Build
+
+* **deps:** bump com.google.firebase:firebase-admin from 9.8.0 to 9.9.0 ([797922b](https://github.com/justedlev/spring-boot-firebase-admin/commit/797922b128b51bc6ecac1d2a066876e3eaece002))
+* **deps:** bump org.springframework.boot:spring-boot-dependencies from 3.5.0 to 3.5.14 ([2c34e9d](https://github.com/justedlev/spring-boot-firebase-admin/commit/2c34e9d14dc9f16a037552adc99fedd034272365))
+* **deps:** com.google.firebase-firebase-admin from 9.8.0 to 9.9.0 ([d199b7b](https://github.com/justedlev/spring-boot-firebase-admin/commit/d199b7b321064abe1c7622c3e7b981e3f0cd2870))
+* **deps:** org.springframework.boot:spring-boot-dependencies from 3.5.0 to 3.5.14 ([3786c00](https://github.com/justedlev/spring-boot-firebase-admin/commit/3786c001588f894c5108a2c8aec92c4346ec8e5d))
+
 ## [0.2.0](https://github.com/justedlev/spring-boot-firebase-admin/compare/v0.1.0...v0.2.0) (2026-06-06)
 
 
