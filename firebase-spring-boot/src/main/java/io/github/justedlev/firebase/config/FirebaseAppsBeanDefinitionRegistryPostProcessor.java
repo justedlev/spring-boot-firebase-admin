@@ -5,14 +5,16 @@ import io.github.justedlev.firebase.FirebaseOptionsFactory;
 import io.github.justedlev.firebase.FirebaseProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -56,5 +58,10 @@ public class FirebaseAppsBeanDefinitionRegistryPostProcessor implements BeanDefi
 
     private Supplier<FirebaseApp> firebaseAppSupplier(FirebaseProperties props) {
         return () -> FirebaseApp.initializeApp(optionsFactory.create(props), props.getName());
+    }
+
+    @Override
+    public void postProcessBeanFactory(@Nullable ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        // nothing to do
     }
 }
