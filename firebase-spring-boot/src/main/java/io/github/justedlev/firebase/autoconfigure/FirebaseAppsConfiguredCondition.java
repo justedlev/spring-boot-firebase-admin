@@ -1,6 +1,7 @@
 package io.github.justedlev.firebase.autoconfigure;
 
 import io.github.justedlev.firebase.config.FirebaseConfigurationProperties;
+import org.jspecify.annotations.NonNull;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
@@ -9,7 +10,6 @@ import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.type.AnnotatedTypeMetadata;
-import org.springframework.lang.NonNull;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -18,7 +18,7 @@ import java.util.function.Predicate;
 
 class FirebaseAppsConfiguredCondition extends SpringBootCondition {
     private static final String MATCH_MSG = "registered firebase apps";
-    private static final Bindable<FirebaseConfigurationProperties> BINDABLE =
+    private static final Bindable<@NonNull FirebaseConfigurationProperties> BINDABLE =
             Bindable.of(FirebaseConfigurationProperties.class);
 
     @NonNull
