@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 This project uses **[Conventional Commits](https://www.conventionalcommits.org/)** and is powered by *
 *[release-please](https://github.com/googleapis/release-please)**.
 
+## [1.0.1](https://github.com/justedlev/spring-boot-firebase-admin/compare/v1.0.0...v1.0.1) (2026-06-16)
+
+
+### 📚 Documentation
+
+* update `README.md` ([b2cb8ca](https://github.com/justedlev/spring-boot-firebase-admin/commit/b2cb8cac8ad287f57a5d7ad71d2421b1aa177293))
+
 ## [1.0.0](https://github.com/justedlev/spring-boot-firebase-admin/compare/v0.2.1...v1.0.0) (2026-06-16)
 
 
