@@ -16,7 +16,7 @@ import io.github.justedlev.firebase.config.FirebaseConfigurationProperties;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -27,7 +27,7 @@ import org.springframework.core.io.ResourceLoader;
 import static io.github.justedlev.firebase.config.FirebaseConfigurationProperties.PREFIX;
 
 @AutoConfiguration
-@ConditionalOnProperty(prefix = PREFIX, value = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnBooleanProperty(prefix = PREFIX, value = "enabled", matchIfMissing = true)
 @EnableConfigurationProperties(FirebaseConfigurationProperties.class)
 public class FirebaseAutoConfiguration {
     @Bean
@@ -59,37 +59,37 @@ public class FirebaseAutoConfiguration {
 
     @Bean
     @ConditionalOnBean(name = "defaultFirebaseApp")
-    @ConditionalOnProperty(prefix = PREFIX + ".apps.default.db", value = "enabled", havingValue = "true", matchIfMissing = true)
-    @ConditionalOnExpression("T(org.springframework.util.StringUtils).hasText('${firebase.apps.default.db.url:}')")
+    @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.db", value = "enabled", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = PREFIX, value = "apps.default.db.url")
     public FirebaseDatabase defaultFirebaseDatabase(FirebaseApp firebaseApp) {
         return FirebaseDatabase.getInstance(firebaseApp);
     }
 
     @Bean
     @ConditionalOnBean(name = "defaultFirebaseApp")
-    @ConditionalOnProperty(prefix = PREFIX + ".apps.default.auth", havingValue = "true", value = "enabled")
+    @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.auth", value = "enabled")
     public FirebaseAuth defaultFirebaseAuth(FirebaseApp firebaseApp) {
         return FirebaseAuth.getInstance(firebaseApp);
     }
 
     @Bean
     @ConditionalOnBean(name = "defaultFirebaseApp")
-    @ConditionalOnProperty(prefix = PREFIX + ".apps.default.messaging", havingValue = "true", value = "enabled")
+    @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.messaging", value = "enabled")
     public FirebaseMessaging defaultFirebaseMessaging(FirebaseApp firebaseApp) {
         return FirebaseMessaging.getInstance(firebaseApp);
     }
 
     @Bean
     @ConditionalOnBean(name = "defaultFirebaseApp")
-    @ConditionalOnProperty(prefix = PREFIX + ".apps.default.storage", havingValue = "true", value = "enabled", matchIfMissing = true)
-    @ConditionalOnExpression("T(org.springframework.util.StringUtils).hasText('${firebase.apps.default.storage.bucket:}')")
+    @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.storage", value = "enabled", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = PREFIX, value = "apps.default.storage.bucket")
     public StorageClient defaultStorageClient(FirebaseApp firebaseApp) {
         return StorageClient.getInstance(firebaseApp);
     }
 
     @Bean
     @ConditionalOnBean(name = "defaultFirebaseApp")
-    @ConditionalOnProperty(prefix = PREFIX + ".apps.default.firestore", havingValue = "true", value = "enabled")
+    @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.firestore", value = "enabled")
     public Firestore defaultFirestore(FirebaseApp firebaseApp) {
         return FirestoreClient.getFirestore(firebaseApp);
     }
