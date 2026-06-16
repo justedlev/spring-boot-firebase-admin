@@ -1,6 +1,6 @@
 <img src="./docs/assets/logo.svg" alt="logo" align="right" height="96" width="96"/>
 
-# Spring Boot Firebase Admin 
+# Spring Boot Firebase Admin
 
 [![language](https://img.shields.io/badge/Java%2017-e6892e.svg?logo=openjdk&logoColor=white)](https://github.com/justedlev/bridgewayhub)
 [![framework](https://img.shields.io/badge/Spring%20Boot%20-6DB33F.svg?logo=springboot&logoColor=white)](https://docs.spring.io/spring-boot/index.html)
@@ -18,12 +18,12 @@ defaults, and flexible credential management.
 
 ### 🍃 Spring Boot Compatibility
 
-| Version | Spring Boot | Status  |
-|---------|-------------|---------|
-| 0.x.x   | 3.5.x       | ⚠️ Beta |
-| 1.x.x   | 2.7.x       | N/A     |
-| 2.x.x   | 3.5.x       | N/A     |
-| 3.x.x   | 4.x.x       | N/A     |
+| Version | Spring Boot    | Status     |
+|---------|----------------|------------|
+| 0.x.x   | 3.5.x          | ⚠️ Beta    |
+| 1.x.x   | [2.7.x, 3.0.0) | ✅ Released |
+| 2.x.x   | [3.5.x, 4.0.0) | N/A        |
+| 3.x.x   | \>=4.x.x       | N/A        |
 
 ### ✨ Features
 
