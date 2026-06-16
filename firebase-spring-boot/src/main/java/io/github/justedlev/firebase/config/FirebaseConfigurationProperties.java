@@ -2,8 +2,8 @@ package io.github.justedlev.firebase.config;
 
 import io.github.justedlev.firebase.FirebaseProperties;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.lang.NonNull;
 
 import java.util.Collections;
 import java.util.Map;
