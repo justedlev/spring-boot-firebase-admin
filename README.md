@@ -50,7 +50,7 @@ defaults, and flexible credential management.
 <dependency>
     <groupId>io.github.justedlev</groupId>
     <artifactId>firebase-spring-boot-starter</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
