@@ -22,7 +22,7 @@ defaults, and flexible credential management.
 |---------|----------------|------------|
 | 0.x.x   | 3.5.x          | ⚠️ Beta    |
 | 1.x.x   | [2.7.x, 3.0.0) | ✅ Released |
-| 2.x.x   | [3.5.x, 4.0.0) | N/A        |
+| 2.x.x   | [3.5.x, 4.0.0) | ✅ Released |
 | 3.x.x   | \>=4.x.x       | N/A        |
 
 ### ✨ Features
