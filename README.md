@@ -4,7 +4,7 @@
 
 [![language](https://img.shields.io/badge/Java%2017-e6892e.svg?logo=openjdk&logoColor=white)](https://github.com/justedlev/bridgewayhub)
 [![framework](https://img.shields.io/badge/Spring%20Boot%20-6DB33F.svg?logo=springboot&logoColor=white)](https://docs.spring.io/spring-boot/index.html)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.justedlev/spring-boot-firebase-admin?logo=apachemaven&label=Maven%20Central)](https://central.sonatype.com/search?q=io.github.justedlev.firebase-spring-boot-starter)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.justedlev/spring-boot-firebase-admin?logo=apachemaven&label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter)
 [![license](https://img.shields.io/github/license/justedlev/spring-boot-firebase-admin?label=License)](https://github.com/justedlev/spring-boot-firebase-admin)
 [![issues](https://img.shields.io/github/issues/justedlev/spring-boot-firebase-admin)](https://github.com/justedlev/spring-boot-firebase-admin/issues)
 [![stars](https://img.shields.io/github/stars/justedlev/spring-boot-firebase-admin)](https://github.com/justedlev/spring-boot-firebase-admin)
@@ -18,12 +18,12 @@ defaults, and flexible credential management.
 
 ### 🍃 Spring Boot Compatibility
 
-| Version | Spring Boot    | Status     |
-|---------|----------------|------------|
-| 0.x.x   | 3.5.x          | ⚠️ Beta    |
-| 1.x.x   | [2.7.x, 3.0.0) | ✅ Released |
-| 2.x.x   | [3.5.x, 4.0.0) | ✅ Released |
-| 3.x.x   | \>=4.x.x       | N/A        |
+| Version                                                                                               | Spring Boot    | Status     |
+|-------------------------------------------------------------------------------------------------------|----------------|------------|
+| 0.x.x                                                                                                 | 3.5.x          | ⚠️ Beta    |
+| [1.x.x](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter/1.0.0) | [2.7.x, 3.0.0) | ✅ Released |
+| [2.x.x](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter/2.0.0) | [3.5.x, 4.0.0) | ✅ Released |
+| 3.x.x                                                                                                 | \>=4.x.x       | N/A        |
 
 ### ✨ Features
 
