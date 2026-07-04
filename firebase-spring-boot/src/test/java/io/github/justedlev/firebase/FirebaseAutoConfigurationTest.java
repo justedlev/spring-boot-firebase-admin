@@ -75,6 +75,25 @@ class FirebaseAutoConfigurationTest {
     }
 
     @Test
+    void withEnabled_multiFirebaseApp_withoutExplicitName() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues(
+                        "firebase.enabled=true",
+                        "firebase.apps.default.project-id=default-project",
+                        "firebase.apps.app1.project-id=app1-project",
+                        "firebase.apps.app2.project-id=app2-project"
+                )
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    assertThat(context).hasBean("defaultFirebaseApp");
+                    assertThat(context).hasBean("app1FirebaseApp");
+                    assertThat(context).hasBean("app2FirebaseApp");
+                });
+    }
+
+    @Test
     void whenDisabled_thenNoBeansCreated() {
         new ApplicationContextRunner()
                 .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
