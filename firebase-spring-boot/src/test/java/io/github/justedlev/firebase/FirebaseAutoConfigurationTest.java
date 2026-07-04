@@ -58,6 +58,23 @@ class FirebaseAutoConfigurationTest {
     }
 
     @Test
+    void whenNoDefaultApp_thenOnlyNamedAppsCreated() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues(
+                        "firebase.enabled=true",
+                        "firebase.apps.app1.name=app1",
+                        "firebase.apps.app1.project-id=app1-project"
+                )
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    assertThat(context).doesNotHaveBean("defaultFirebaseApp");
+                    assertThat(context).hasBean("app1FirebaseApp");
+                });
+    }
+
+    @Test
     void whenDisabled_thenNoBeansCreated() {
         new ApplicationContextRunner()
                 .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
