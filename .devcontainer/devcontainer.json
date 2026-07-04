@@ -1,0 +1,31 @@
+{
+  "name": "spring-boot-firebase-admin",
+  "image": "mcr.microsoft.com/devcontainers/java:1-17-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "none",
+      "installMaven": "true",
+      "installGradle": "false"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-boot-dev-pack",
+        "redhat.vscode-xml"
+      ],
+      "settings": {
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "java.compile.nullAnalysis.mode": "automatic",
+        "files.eol": "\n"
+      }
+    },
+    "jetbrains": {
+      "backend": "IntelliJ"
+    }
+  },
+  "postCreateCommand": "java -version && mvn -version",
+  "remoteUser": "vscode"
+}
