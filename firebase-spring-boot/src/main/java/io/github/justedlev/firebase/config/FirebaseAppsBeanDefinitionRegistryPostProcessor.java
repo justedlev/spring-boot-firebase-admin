@@ -45,7 +45,7 @@ public class FirebaseAppsBeanDefinitionRegistryPostProcessor implements BeanDefi
                 .forEach(entry -> {
                     var beanDefinition = BeanDefinitionBuilder.genericBeanDefinition(
                             FirebaseApp.class,
-                            firebaseAppSupplier(entry.getValue())
+                            firebaseAppSupplier(entry.getKey(), entry.getValue())
                     ).getBeanDefinition();
                     registry.registerBeanDefinition(
                             entry.getKey() + BEAN_NAME_SUFFIX,
@@ -54,7 +54,11 @@ public class FirebaseAppsBeanDefinitionRegistryPostProcessor implements BeanDefi
                 });
     }
 
-    private Supplier<FirebaseApp> firebaseAppSupplier(FirebaseProperties props) {
-        return () -> FirebaseApp.initializeApp(optionsFactory.create(props), props.getName());
+    private Supplier<FirebaseApp> firebaseAppSupplier(String appKey, FirebaseProperties props) {
+        // Fall back to the map key as the Firebase app name when the user did not set an
+        // explicit name; otherwise every unnamed app would inherit FirebaseApp.DEFAULT_APP_NAME
+        // and collide on FirebaseApp.initializeApp.
+        var name = FirebaseApp.DEFAULT_APP_NAME.equals(props.getName()) ? appKey : props.getName();
+        return () -> FirebaseApp.initializeApp(optionsFactory.create(props), name);
     }
 }
