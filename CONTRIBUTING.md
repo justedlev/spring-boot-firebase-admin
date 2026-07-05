@@ -112,6 +112,18 @@ Releases are fully automated.
 4. GitHub Release is created
 5. Artifacts are published to Maven Central
 
+### Maintenance branches
+
+Each Spring Boot generation this project supports lives on its own branch so older lines can keep receiving fixes after
+`main` has moved on. See the [Spring Boot Compatibility](README.md#-spring-boot-compatibility) table for the current
+mapping (e.g. `1.x` for the Spring Boot `[2.7.x, 3.0.0)` line).
+
+* Target a PR at the maintenance branch for the Spring Boot generation it fixes, not at `main`
+* Each maintenance branch has its own `release-please` config/manifest and release workflow, so its releases are
+  versioned and published independently of `main`
+* When work on the next Spring Boot generation begins, a new maintenance branch is cut from `main` at that point so the
+  line being superseded keeps its own release stream
+
 ## ⚠️ What to Avoid
 
 * Breaking public API without discussion
