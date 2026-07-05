@@ -28,6 +28,11 @@ public class FirebaseConfigurationProperties {
 
     @NonNull
     public FirebaseProperties getDefaultApp() {
-        return apps.get(DEFAULT_APP_NAME);
+        var defaultApp = apps.get(DEFAULT_APP_NAME);
+        if (defaultApp == null) {
+            throw new IllegalStateException(
+                    "No Firebase application configured under '" + PREFIX + ".apps." + DEFAULT_APP_NAME + "'");
+        }
+        return defaultApp;
     }
 }
