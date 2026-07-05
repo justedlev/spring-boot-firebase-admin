@@ -22,12 +22,12 @@ defaults, and flexible credential management.
 | ----------------------------------------------------------------------------------------------------- | -------------- | ----------- | --------------------------------------------------------------------------- |
 | 0.x.x                                                                                                 | 3.5.x          | ⚠️ Beta     | —                                                                           |
 | [1.x.x](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter/1.0.0) | [2.7.x, 3.0.0) | ✅ Released | [`1.x`](https://github.com/justedlev/spring-boot-firebase-admin/tree/1.x)   |
-| [2.x.x](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter/2.0.0) | [3.5.x, 4.0.0) | ✅ Released | [`main`](https://github.com/justedlev/spring-boot-firebase-admin/tree/main) |
+| [2.x.x](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter/2.0.0) | [3.5.x, 4.0.0) | ✅ Released | [`2.x`](https://github.com/justedlev/spring-boot-firebase-admin/tree/2.x)   |
 | 3.x.x                                                                                                 | \>=4.x.x       | N/A         | —                                                                           |
 
-Bug fixes for an older Spring Boot generation should target that line's maintenance branch, not `main`. When work on the next
-generation (3.x.x) begins, a `2.x` branch will be cut from `main` at that point so the 2.x.x line keeps receiving patches
-independently.
+Bug fixes for an older Spring Boot generation should target that line's maintenance branch, not `main`. `main` tracks the
+next, in-development generation; when that work is ready to ship, a new maintenance branch is cut for the line it
+supersedes, the same way `1.x` and `2.x` were cut.
 
 ### ✨ Features
 
