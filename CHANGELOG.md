@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 This project uses **[Conventional Commits](https://www.conventionalcommits.org/)** and is powered by *
 *[release-please](https://github.com/googleapis/release-please)**.
 
+## [3.0.0](https://github.com/justedlev/spring-boot-firebase-admin/compare/v2.0.0...v3.0.0) (2026-07-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* raises the minimum supported Spring Boot to 4.0.x (Spring Framework 7). Compilation against this bump has not been verified in this environment (no Maven/network access); CI (once added) or a local build should validate it before merging.
+
+### 🚀 Features
+
+* upgrade to Spring Boot 4.1 (Spring Framework 7) ([0827e74](https://github.com/justedlev/spring-boot-firebase-admin/commit/0827e74880fcd4a1f7f160163872c7b2f0a059c1))
+
+
+### 🐛 Bug Fixes
+
+* close credentials InputStream and surface load errors ([592e44f](https://github.com/justedlev/spring-boot-firebase-admin/commit/592e44fe516c1cb7254a708d91e6f881db3ee118))
+* close credentials InputStream and surface load errors ([cd7b878](https://github.com/justedlev/spring-boot-firebase-admin/commit/cd7b878d50623f5a1eb7a88f1939bc28af33730e))
+* default multi-app name to map key to avoid init collision ([f4c4140](https://github.com/justedlev/spring-boot-firebase-admin/commit/f4c4140142799625b86069157b7694e4b729040f))
+* default multi-app name to map key to avoid init collision ([0fc5782](https://github.com/justedlev/spring-boot-firebase-admin/commit/0fc578259c4fdc39d51c9e469294a46c48feb53d))
+* merge post-2.0.0 fixes into main ([1c38409](https://github.com/justedlev/spring-boot-firebase-admin/commit/1c384099b64e260cc8d9e179ad2cd0c7d9502b0c))
+* revert main's version bookkeeping to 2.0.0 ([6830064](https://github.com/justedlev/spring-boot-firebase-admin/commit/68300648a69a60745d7e9cef9a90c1394e251dda))
+* revert main's version bookkeeping to the last real release (2.0.0) ([a4cf202](https://github.com/justedlev/spring-boot-firebase-admin/commit/a4cf2028bc4c3147be9bfb8a0cf9b20852db43f0))
+* skip default Firebase app when not configured ([cfa9349](https://github.com/justedlev/spring-boot-firebase-admin/commit/cfa9349ee104ecaa177c3bd8c95b8fbf094ada63))
+* skip default Firebase app when not configured ([c353147](https://github.com/justedlev/spring-boot-firebase-admin/commit/c353147cf32f970c97b138ab0fc0e206b2134458))
+
+
+### 📚 Documentation
+
+* document per-Spring-Boot-generation maintenance branches ([67c5ad4](https://github.com/justedlev/spring-boot-firebase-admin/commit/67c5ad4a867cae0d6168d6f1c71ca95503483539))
+* document per-Spring-Boot-generation maintenance branches ([b705920](https://github.com/justedlev/spring-boot-firebase-admin/commit/b705920a1b09f99b5055e7f415075aa625a19213))
+* point 2.x.x compatibility entry at the 2.x branch ([4039f9c](https://github.com/justedlev/spring-boot-firebase-admin/commit/4039f9c95efa5ad0a74bfdf98d06f669ccfbb6d0))
+* update README with correct links and formatting adjustments ([32d5051](https://github.com/justedlev/spring-boot-firebase-admin/commit/32d50510727919c50cd022eae6e6c91afd4e4c28))
+
 ## [2.0.1](https://github.com/justedlev/spring-boot-firebase-admin/compare/v2.0.0...v2.0.1) (2026-07-05)
 
 
