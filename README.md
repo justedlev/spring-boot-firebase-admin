@@ -18,14 +18,12 @@ defaults, and flexible credential management.
 
 ### 🍃 Spring Boot Compatibility
 
-| Version | Spring Boot | Status |Maintenance branch |
-| ----------------------------------------------------------------------------------------------------- | -------------- | ----------- | --------------------------------------------------------------------------- ----|
-| 0.x.x | 3.5.x | ⚠️ Beta |— |
-| [1.x.x](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter/1.0.0) | [2.7.x,
-3.0.0) | ✅ Released |[`1.x`](https://github.com/justedlev/spring-boot-firebase-admin/tree/1.x)   |
-| [2.x.x](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter/2.0.0) | [3.5.x,
-4.0.0) | ✅ Released |[`2.x`](https://github.com/justedlev/spring-boot-firebase-admin/tree/2.x)   |
-| 3.x.x | [4.0.x, 5.0.0) | 🚧 In Progress |— |
+| Version                                                                                               | Spring Boot    | Status         | Maintenance branch                                                        |
+|-------------------------------------------------------------------------------------------------------|----------------|----------------|---------------------------------------------------------------------------|
+| 0.x.x                                                                                                 | 3.5.x          | ⚠️ Beta        | —                                                                         |
+| [1.x.x](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter/1.0.0) | [2.7.x, 3.0.0) | ✅ Released     | [`1.x`](https://github.com/justedlev/spring-boot-firebase-admin/tree/1.x) |
+| [2.x.x](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter/2.0.0) | [3.5.x, 4.0.0) | ✅ Released     | [`2.x`](https://github.com/justedlev/spring-boot-firebase-admin/tree/2.x) |
+| 3.x.x                                                                                                 | [4.0.x, 5.0.0) | 🚧 In Progress | —                                                                         |
 
 Bug fixes for an older Spring Boot generation should target that line's maintenance branch, not `main`. `main` tracks
 the
