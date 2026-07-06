@@ -57,7 +57,7 @@ supersedes, the same way `1.x` and `2.x` were cut.
 <dependency>
     <groupId>io.github.justedlev</groupId>
     <artifactId>firebase-spring-boot-starter</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 

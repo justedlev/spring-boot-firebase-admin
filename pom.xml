@@ -4,7 +4,7 @@
 
     <groupId>io.github.justedlev</groupId>
     <artifactId>spring-boot-firebase-admin</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
     <packaging>pom</packaging>
     <name>Spring Boot Firebase Admin SDK Parent</name>
     <description>A lightweight Firebase Admin SDK integration for Spring Boot</description>
