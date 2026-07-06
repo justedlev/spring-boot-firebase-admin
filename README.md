@@ -18,14 +18,15 @@ defaults, and flexible credential management.
 
 ### 🍃 Spring Boot Compatibility
 
-| Version                                                                                               | Spring Boot    | Status      | Maintenance branch                                                          |
-| ----------------------------------------------------------------------------------------------------- | -------------- | ----------- | --------------------------------------------------------------------------- |
-| 0.x.x                                                                                                 | 3.5.x          | ⚠️ Beta     | —                                                                           |
-| [1.x.x](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter/1.0.0) | [2.7.x, 3.0.0) | ✅ Released | [`1.x`](https://github.com/justedlev/spring-boot-firebase-admin/tree/1.x)   |
-| [2.x.x](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter/2.0.0) | [3.5.x, 4.0.0) | ✅ Released | [`2.x`](https://github.com/justedlev/spring-boot-firebase-admin/tree/2.x)   |
-| 3.x.x                                                                                                 | \>=4.x.x       | N/A         | —                                                                           |
+| Version                                                                                               | Spring Boot    | Status         | Maintenance branch                                                        |
+|-------------------------------------------------------------------------------------------------------|----------------|----------------|---------------------------------------------------------------------------|
+| 0.x.x                                                                                                 | 3.5.x          | ⚠️ Beta        | —                                                                         |
+| [1.x.x](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter/1.0.0) | [2.7.x, 3.0.0) | ✅ Released     | [`1.x`](https://github.com/justedlev/spring-boot-firebase-admin/tree/1.x) |
+| [2.x.x](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter/2.0.0) | [3.5.x, 4.0.0) | ✅ Released     | [`2.x`](https://github.com/justedlev/spring-boot-firebase-admin/tree/2.x) |
+| 3.x.x                                                                                                 | [4.0.x, 5.0.0) | 🚧 In Progress | —                                                                         |
 
-Bug fixes for an older Spring Boot generation should target that line's maintenance branch, not `main`. `main` tracks the
+Bug fixes for an older Spring Boot generation should target that line's maintenance branch, not `main`. `main` tracks
+the
 next, in-development generation; when that work is ready to ship, a new maintenance branch is cut for the line it
 supersedes, the same way `1.x` and `2.x` were cut.
 
@@ -33,12 +34,12 @@ supersedes, the same way `1.x` and `2.x` were cut.
 
 - ✅ Auto-configures FirebaseApp
 - ✅ Provides ready-to-use beans:
-  - FirebaseAuth
-  - FirebaseDatabase
-  - FirebaseMessaging
+    - FirebaseAuth
+    - FirebaseDatabase
+    - FirebaseMessaging
 - ✅ Supports multiple credential sources:
-  - classpath
-  - filesystem
+    - classpath
+    - filesystem
 - ✅ Modular and extensible design
 - ✅ Works with multi-module Spring Boot projects
 - ✅ Minimal configuration required
@@ -54,7 +55,7 @@ supersedes, the same way `1.x` and `2.x` were cut.
 <dependency>
     <groupId>io.github.justedlev</groupId>
     <artifactId>firebase-spring-boot-starter</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -103,15 +104,15 @@ public class DemoController {
 > By default, you can use the predefined FirebaseApp properties using `firebase.apps.default.*`
 
 | Property                                                   | Description                                                                                   | Default                                                                   |
-| ---------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+|------------------------------------------------------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
 | `firebase.enabled`                                         | Enable Firebase integration                                                                   | `true`                                                                    |
-| `firebase.apps.<app-name>.name`\*                          | Unique name for the Firebase app                                                              | `[DEFAULT]`                                                               |
+| `firebase.apps.<app-name>.name`*                           | Unique name for the Firebase app                                                              | `[DEFAULT]`                                                               |
 | `firebase.apps.<app-name>.database-auth-variable-override` | The value to use for the `auth` variable in the security rules for Realtime Database actions. | -                                                                         |
 | `firebase.apps.<app-name>.database-url`                    | The Realtime Database URL to use for data storage.                                            | `https://${firebase.apps.default.project-id}-default-rtdb.firebaseio.com` |
-| `firebase.apps.<app-name>.project-id`\*                    | Firebase project ID                                                                           | -                                                                         |
+| `firebase.apps.<app-name>.project-id`*                     | Firebase project ID                                                                           | -                                                                         |
 | `firebase.apps.<app-name>.storage-bucket`                  | The full name of an existing Google Cloud Storage bucket, excluding any protocol prefixes     | -                                                                         |
 | `firebase.apps.<app-name>.service-account-id`              | Service account email address string                                                          | -                                                                         |
-| `firebase.apps.<app-name>.credentials`\*                   | Credentials used to authenticate the SDK                                                      | `file:${user.home}/.firebase/${firebase.apps.default.project-id}.json`    |
+| `firebase.apps.<app-name>.credentials`*                    | Credentials used to authenticate the SDK                                                      | `file:${user.home}/.firebase/${firebase.apps.default.project-id}.json`    |
 | `firebase.apps.<app-name>.connect-timeout`                 | Connect timeout                                                                               | -                                                                         |
 | `firebase.apps.<app-name>.read-timeout`                    | Read timeout                                                                                  | -                                                                         |
 | `firebase.apps.<app-name>.write-timeout`                   | Write timeout                                                                                 | -                                                                         |
