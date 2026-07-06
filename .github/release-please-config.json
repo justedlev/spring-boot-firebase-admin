@@ -6,7 +6,7 @@
   "separate-pull-requests": true,
   "bump-minor-pre-major": true,
   "skip-snapshot": true,
-  "include-component-in-tag": false,
+  "include-component-in-tag": true,
   "pull-request-title-pattern": "chore: release v${version}",
   "pull-request-header": "## 📦 What's Changed",
   "pull-request-footer": "Thanks to all contributors! 🙌",
@@ -70,7 +70,7 @@
   ],
   "packages": {
     ".": {
-      "component": "spring-boot-firebase-admin"
+      "component": "spring-boot-firebase-admin-2x"
     }
   }
 }
