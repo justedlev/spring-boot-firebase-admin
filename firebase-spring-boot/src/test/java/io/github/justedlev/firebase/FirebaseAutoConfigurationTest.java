@@ -277,4 +277,53 @@ class FirebaseAutoConfigurationTest {
                     .build(), "custom");
         }
     }
+
+    @Test
+    void whenNamedAppServicesEnabled_thenNamedServiceBeansCreated() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues(
+                        "firebase.apps.default.project-id=default-project",
+                        "firebase.apps.default.auth.enabled=true",
+                        "firebase.apps.app1.project-id=app1-project",
+                        "firebase.apps.app1.db.url=http://localhost:0",
+                        "firebase.apps.app1.auth.enabled=true",
+                        "firebase.apps.app1.messaging.enabled=true",
+                        "firebase.apps.app1.storage.bucket=app1-bucket",
+                        "firebase.apps.app1.firestore.enabled=true"
+                )
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    var app1 = context.getBean("app1FirebaseApp", FirebaseApp.class);
+                    assertThat(context.getBean("app1FirebaseAuth")).isSameAs(FirebaseAuth.getInstance(app1));
+                    assertThat(context.getBean("app1FirebaseDatabase")).isSameAs(FirebaseDatabase.getInstance(app1));
+                    assertThat(context.getBean("app1FirebaseMessaging")).isSameAs(FirebaseMessaging.getInstance(app1));
+                    assertThat(context.getBean("app1StorageClient")).isSameAs(StorageClient.getInstance(app1));
+                    assertThat(context).hasBean("app1Firestore");
+                    // the default app's beans stay injectable by type
+                    var defaultApp = context.getBean("defaultFirebaseApp", FirebaseApp.class);
+                    assertThat(context.getBean(FirebaseAuth.class)).isSameAs(FirebaseAuth.getInstance(defaultApp));
+                });
+    }
+
+    @Test
+    void whenNamedAppServicesNotEnabled_thenNoNamedServiceBeans() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues(
+                        "firebase.apps.app1.project-id=app1-project",
+                        "firebase.apps.app1.db.url=http://localhost:0",
+                        "firebase.apps.app1.db.enabled=false"
+                )
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    assertThat(context).doesNotHaveBean(FirebaseAuth.class);
+                    assertThat(context).doesNotHaveBean(FirebaseDatabase.class);
+                    assertThat(context).doesNotHaveBean(FirebaseMessaging.class);
+                    assertThat(context).doesNotHaveBean(StorageClient.class);
+                    assertThat(context).doesNotHaveBean(Firestore.class);
+                });
+    }
 }
