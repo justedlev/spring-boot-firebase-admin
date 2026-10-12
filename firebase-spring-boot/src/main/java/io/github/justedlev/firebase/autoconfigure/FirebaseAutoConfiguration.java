@@ -45,8 +45,8 @@ public class FirebaseAutoConfiguration {
 
     @Bean
     @ConditionalOnFirebaseAppsProperties
-    public static BeanDefinitionRegistryPostProcessor firebaseAppsPostProcessor(FirebaseOptionsFactory optionsFactory) {
-        return new FirebaseAppsBeanDefinitionRegistryPostProcessor(optionsFactory);
+    public static BeanDefinitionRegistryPostProcessor firebaseAppsPostProcessor() {
+        return new FirebaseAppsBeanDefinitionRegistryPostProcessor();
     }
 
     @Bean(destroyMethod = "delete")

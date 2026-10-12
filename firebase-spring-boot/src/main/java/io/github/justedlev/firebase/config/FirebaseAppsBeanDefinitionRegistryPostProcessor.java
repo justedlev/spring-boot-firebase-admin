@@ -3,10 +3,10 @@ package io.github.justedlev.firebase.config;
 import com.google.firebase.FirebaseApp;
 import io.github.justedlev.firebase.FirebaseOptionsFactory;
 import io.github.justedlev.firebase.FirebaseProperties;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
@@ -19,21 +19,30 @@ import java.util.function.Supplier;
 
 import static io.github.justedlev.firebase.config.FirebaseConfigurationProperties.DEFAULT_APP_NAME;
 
-@Setter
-@RequiredArgsConstructor
-public class FirebaseAppsBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor, EnvironmentAware {
+/**
+ * Registers a {@link FirebaseApp} bean named {@code <key>FirebaseApp} for every entry under
+ * {@code firebase.apps}, except {@code default}.
+ * <p>
+ * The {@link FirebaseOptionsFactory} is looked up only when an app bean is created, so the
+ * factory (and anything it depends on) is still a regular bean, processed by all
+ * {@link org.springframework.beans.factory.config.BeanPostProcessor BeanPostProcessors}.
+ */
+public class FirebaseAppsBeanDefinitionRegistryPostProcessor
+        implements BeanDefinitionRegistryPostProcessor, EnvironmentAware, BeanFactoryAware {
     private static final String BEAN_NAME_SUFFIX = FirebaseApp.class.getSimpleName();
-    private final FirebaseOptionsFactory optionsFactory;
     private FirebaseConfigurationProperties properties;
+    private BeanFactory beanFactory;
 
     @Override
     public void setEnvironment(@NonNull Environment environment) {
-        var binder = Binder.get(environment);
-        var result = binder.bind(
-                FirebaseConfigurationProperties.PREFIX,
-                FirebaseConfigurationProperties.class
-        );
-        setProperties(result.get());
+        properties = Binder.get(environment)
+                .bind(FirebaseConfigurationProperties.PREFIX, FirebaseConfigurationProperties.class)
+                .orElseGet(FirebaseConfigurationProperties::new);
+    }
+
+    @Override
+    public void setBeanFactory(@NonNull BeanFactory beanFactory) {
+        this.beanFactory = beanFactory;
     }
 
     @Override
@@ -59,6 +68,9 @@ public class FirebaseAppsBeanDefinitionRegistryPostProcessor implements BeanDefi
         // explicit name; otherwise every unnamed app would inherit FirebaseApp.DEFAULT_APP_NAME
         // and collide on FirebaseApp.initializeApp.
         var name = FirebaseApp.DEFAULT_APP_NAME.equals(props.getName()) ? appKey : props.getName();
-        return () -> FirebaseApp.initializeApp(optionsFactory.create(props), name);
+        return () -> {
+            var optionsFactory = beanFactory.getBean(FirebaseOptionsFactory.class);
+            return FirebaseApp.initializeApp(optionsFactory.create(props), name);
+        };
     }
 }
