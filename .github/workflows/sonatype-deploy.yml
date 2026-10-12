@@ -3,8 +3,10 @@ name: Sonatype Workflow
 on:
   release:
     types: [ published ]
-    tags: [ "v*.*.*" ]
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   publish:
@@ -54,5 +56,4 @@ jobs:
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
         run: |
-          ./mvnw -B clean deploy -P release \
-            -Dgpg.passphrase=$MAVEN_GPG_PASSPHRASE
+          ./mvnw -B clean deploy -P release
