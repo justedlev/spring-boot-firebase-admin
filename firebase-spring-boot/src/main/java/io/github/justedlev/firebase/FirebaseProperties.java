@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Duration;
 import java.util.Map;
 
 import static com.google.firebase.FirebaseApp.DEFAULT_APP_NAME;
@@ -24,9 +25,18 @@ public class FirebaseProperties {
     private String projectId;
     private String serviceAccountId;
     private String credentials;
-    private Integer connectTimeout;
-    private Integer readTimeout;
-    private Integer writeTimeout;
+    /**
+     * Connect timeout for outgoing HTTP connections. Plain numbers are interpreted as milliseconds.
+     */
+    private Duration connectTimeout;
+    /**
+     * Read timeout for outgoing HTTP connections. Plain numbers are interpreted as milliseconds.
+     */
+    private Duration readTimeout;
+    /**
+     * Write timeout for outgoing HTTP connections. Plain numbers are interpreted as milliseconds.
+     */
+    private Duration writeTimeout;
     @lombok.Builder.Default
     private FirebaseAuthProperties auth = new FirebaseAuthProperties();
     @lombok.Builder.Default
