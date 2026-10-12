@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.PropertyMapper;
 public record DefaultFirebaseOptionsFactory(FirebaseCredentialsFactory credsFactory) implements FirebaseOptionsFactory {
     @Override
     public FirebaseOptions create(FirebaseProperties properties) {
-        var mapper = PropertyMapper.get().alwaysApplyingWhenNonNull();
+        var mapper = PropertyMapper.get();
         var ops = FirebaseOptions.builder();
         mapper.from(properties.getDatabaseAuthVariableOverride()).to(ops::setDatabaseAuthVariableOverride);
         mapper.from(properties.getDb())
