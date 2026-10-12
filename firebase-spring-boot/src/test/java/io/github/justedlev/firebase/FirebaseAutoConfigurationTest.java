@@ -1,7 +1,9 @@
 package io.github.justedlev.firebase;
 
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.cloud.StorageClient;
 import com.google.firebase.database.FirebaseDatabase;
@@ -219,6 +221,60 @@ class FirebaseAutoConfigurationTest {
         public Object postProcessBeforeInitialization(Object bean, String beanName) {
             processed.add(beanName);
             return bean;
+        }
+    }
+
+    @Test
+    void whenUserDefinesOwnFirebaseApp_thenServiceBeansUseIt() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(CustomFirebaseAppConfiguration.class)
+                .withPropertyValues("firebase.apps.default.auth.enabled=true")
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    assertThat(context).hasSingleBean(FirebaseApp.class);
+                    assertThat(context).hasSingleBean(FirebaseAuth.class);
+                    assertThat(context.getBean(FirebaseAuth.class))
+                            .isSameAs(FirebaseAuth.getInstance(context.getBean(FirebaseApp.class)));
+                });
+    }
+
+    @Test
+    void whenDatabaseExplicitlyDisabled_thenNoDatabaseBean() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues(
+                        "firebase.apps.default.project-id=default-project",
+                        "firebase.apps.default.db.url=http://localhost:0",
+                        "firebase.apps.default.db.enabled=false",
+                        "firebase.apps.default.storage.bucket=default-bucket",
+                        "firebase.apps.default.storage.enabled=false"
+                )
+                .run(context -> {
+                    assertThat(context).doesNotHaveBean(FirebaseDatabase.class);
+                    assertThat(context).doesNotHaveBean(StorageClient.class);
+                });
+    }
+
+    @Test
+    void propertiesDefaultsMatchAutoConfigurationDefaults() {
+        var props = new FirebaseProperties();
+        assertThat(props.getDb().isEnabled()).isTrue();
+        assertThat(props.getStorage().isEnabled()).isTrue();
+        assertThat(props.getAuth().isEnabled()).isFalse();
+        assertThat(props.getMessaging().isEnabled()).isFalse();
+        assertThat(props.getFirestore().isEnabled()).isFalse();
+    }
+
+    @Configuration(proxyBeanMethods = false)
+    static class CustomFirebaseAppConfiguration {
+        @Bean(destroyMethod = "delete")
+        FirebaseApp myFirebaseApp() {
+            return FirebaseApp.initializeApp(FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.newBuilder().build())
+                    .setProjectId("custom-project")
+                    .build(), "custom");
         }
     }
 }

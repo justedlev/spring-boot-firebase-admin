@@ -10,6 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class FirebaseDatabaseProperties {
-    private boolean enabled;
+    /**
+     * Whether to register a {@code FirebaseDatabase} bean. Only takes effect when {@code url} is set.
+     */
+    @Builder.Default
+    private boolean enabled = true;
+    /**
+     * The Realtime Database URL, e.g. {@code https://<project-id>-default-rtdb.firebaseio.com}.
+     */
     private String url;
 }

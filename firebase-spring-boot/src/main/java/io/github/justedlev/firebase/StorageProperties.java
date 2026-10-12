@@ -10,6 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class StorageProperties {
-    private boolean enabled;
+    /**
+     * Whether to register a {@code StorageClient} bean. Only takes effect when {@code bucket} is set.
+     */
+    @Builder.Default
+    private boolean enabled = true;
+    /**
+     * The default Cloud Storage bucket name, without the {@code gs://} prefix.
+     */
     private String bucket;
 }

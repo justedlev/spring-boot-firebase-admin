@@ -10,5 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class FirebaseMessagingProperties {
+    /**
+     * Whether to register a {@code FirebaseMessaging} bean.
+     */
     private boolean enabled;
 }
