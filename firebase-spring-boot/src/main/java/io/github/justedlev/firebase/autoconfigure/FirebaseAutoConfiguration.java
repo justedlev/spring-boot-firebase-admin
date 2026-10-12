@@ -49,7 +49,7 @@ public class FirebaseAutoConfiguration {
         return new FirebaseAppsBeanDefinitionRegistryPostProcessor(optionsFactory);
     }
 
-    @Bean
+    @Bean(destroyMethod = "delete")
     @Primary
     @ConditionalOnMissingBean
     @Conditional(DefaultFirebaseAppConfiguredCondition.class)

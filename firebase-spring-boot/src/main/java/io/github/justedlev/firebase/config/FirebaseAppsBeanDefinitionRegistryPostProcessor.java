@@ -46,7 +46,7 @@ public class FirebaseAppsBeanDefinitionRegistryPostProcessor implements BeanDefi
                     var beanDefinition = BeanDefinitionBuilder.genericBeanDefinition(
                             FirebaseApp.class,
                             firebaseAppSupplier(entry.getKey(), entry.getValue())
-                    ).getBeanDefinition();
+                    ).setDestroyMethodName("delete").getBeanDefinition();
                     registry.registerBeanDefinition(
                             entry.getKey() + BEAN_NAME_SUFFIX,
                             beanDefinition

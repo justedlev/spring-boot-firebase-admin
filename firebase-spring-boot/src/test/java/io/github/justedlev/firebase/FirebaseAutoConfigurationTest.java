@@ -159,4 +159,29 @@ class FirebaseAutoConfigurationTest {
                     assertThat(context).hasSingleBean(FirebaseMessaging.class);
                 });
     }
+
+    @Test
+    void whenContextClosed_thenFirebaseAppsDeleted() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues(
+                        "firebase.apps.default.project-id=default-project",
+                        "firebase.apps.app1.project-id=app1-project"
+                )
+                .run(context -> assertThat(FirebaseApp.getApps()).hasSize(2));
+
+        assertThat(FirebaseApp.getApps()).isEmpty();
+    }
+
+    @Test
+    void whenContextRestarted_thenFirebaseAppsReinitialized() {
+        var runner = new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues("firebase.apps.default.project-id=default-project");
+
+        runner.run(context -> assertThat(context).hasNotFailed());
+        runner.run(context -> assertThat(context).hasNotFailed());
+    }
 }
