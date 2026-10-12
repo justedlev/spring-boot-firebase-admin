@@ -1,0 +1,19 @@
+firebase:
+  apps:
+    default:
+      project-id: demo-firebase-spring-boot
+      auth:
+        enabled: true
+      db:
+        url: https://demo-firebase-spring-boot-default-rtdb.firebaseio.com
+      # The Java Admin SDK cannot target the Storage emulator; this only checks the StorageClient bean starts
+      storage:
+        bucket: demo-firebase-spring-boot.appspot.com
+      firestore:
+        enabled: true
+    secondary:
+      project-id: demo-firebase-spring-boot
+      auth:
+        enabled: true
+      firestore:
+        enabled: true
