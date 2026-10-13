@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 This project uses **[Conventional Commits](https://www.conventionalcommits.org/)** and is powered by *
 *[release-please](https://github.com/googleapis/release-please)**.
 
-## [3.0.0](https://github.com/justedlev/spring-boot-firebase-admin/compare/v2.0.0...v3.0.0) (2026-07-06)
+## 3.0.0 — first tag (2026-07-06, never published to Maven Central)
 
 
 ### ⚠ BREAKING CHANGES
