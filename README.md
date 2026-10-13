@@ -145,6 +145,12 @@ The `default` app's beans are `@Primary`, so they are injected when no qualifier
 | `firebase.apps.<app>.storage.enabled`                 | Set to `false` to skip the `StorageClient` bean even though `storage.bucket` is set                              | `true`                            |
 | `firebase.apps.<app>.firestore.enabled`               | Register a `Firestore` bean                                                                                      | `false`                           |
 
+### 🧪 Firebase Emulator Suite
+
+The Admin SDK switches to the emulators when `FIREBASE_AUTH_EMULATOR_HOST`, `FIREBASE_DATABASE_EMULATOR_HOST` or
+`FIRESTORE_EMULATOR_HOST` are set (`firebase emulators:exec` sets them for you). Use a `demo-` project ID so nothing
+can reach a real project. `StorageClient` does not support the Storage emulator.
+
 ### 🔧 Customization
 
 Declare your own `FirebaseCredentialsFactory` or `FirebaseOptionsFactory` bean to replace the defaults, for example

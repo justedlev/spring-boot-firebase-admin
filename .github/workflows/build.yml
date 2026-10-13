@@ -31,3 +31,37 @@ jobs:
 
       - name: Build and test
         run: ./mvnw -B verify
+
+  integration-test:
+    name: Integration tests (Firebase Emulator Suite)
+    runs-on: ubuntu-latest
+    env:
+      FIREBASE_TOOLS_VERSION: '15.33.0'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      # Recent Firestore/Database emulators require Java 21; the library is still compiled with --release 17
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
+      - name: Cache emulator binaries
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/firebase/emulators
+          key: firebase-emulators-${{ env.FIREBASE_TOOLS_VERSION }}
+
+      - name: Run integration tests
+        run: >
+          npx -y firebase-tools@${FIREBASE_TOOLS_VERSION} emulators:exec
+          --project demo-firebase-spring-boot
+          "./mvnw -B verify -Pit"

@@ -49,6 +49,23 @@ It follows:
 * Cover auto-configuration logic
 * Use `ApplicationContextRunner` where applicable
 
+### Integration tests
+
+Integration tests (`*IT.java`) start a real Spring Boot context and talk to the
+[Firebase Emulator Suite](https://firebase.google.com/docs/emulator-suite) (Auth, Realtime Database, Firestore).
+They run in the `it` Maven profile and need Node.js 20+ and Java 21+ for the emulators:
+
+```bash
+npx -y firebase-tools@15.33.0 emulators:exec --project demo-firebase-spring-boot "./mvnw verify -Pit"
+```
+
+`emulators:exec` exports the `*_EMULATOR_HOST` variables the Admin SDK reads; the tests refuse to run without them.
+The `demo-` project ID guarantees nothing reaches a real Firebase project. Emulator ports and rules live in
+`firebase.json` and `emulator/`.
+
+The Java Admin SDK cannot point `StorageClient` at the Storage emulator, so Cloud Storage is only covered by unit
+tests.
+
 ## 🧾 Commit Guidelines
 
 This project uses **[Conventional Commits](https://www.conventionalcommits.org)**.
