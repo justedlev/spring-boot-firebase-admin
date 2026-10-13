@@ -41,7 +41,6 @@
                         </goals>
                         <configuration>
                             <classifier>sources</classifier>
-                            <classesDirectory>${project.basedir}/src/main/javadoc</classesDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -52,7 +51,6 @@
                         </goals>
                         <configuration>
                             <classifier>javadoc</classifier>
-                            <classesDirectory>${project.basedir}/src/main/javadoc</classesDirectory>
                         </configuration>
                     </execution>
                 </executions>
