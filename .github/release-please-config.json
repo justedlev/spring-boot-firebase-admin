@@ -6,7 +6,7 @@
   "separate-pull-requests": true,
   "bump-minor-pre-major": true,
   "skip-snapshot": true,
-  "include-component-in-tag": true,
+  "include-component-in-tag": false,
   "pull-request-title-pattern": "chore: release v${version}",
   "pull-request-header": "## 📦 What's Changed",
   "pull-request-footer": "Thanks to all contributors! 🙌",
