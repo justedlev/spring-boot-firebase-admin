@@ -1,4 +1,0 @@
-firebase:
-  apps:
-    default:
-      credentials: file:${user.home}/.config/gcloud/${firebase.apps.default.project-id}.json

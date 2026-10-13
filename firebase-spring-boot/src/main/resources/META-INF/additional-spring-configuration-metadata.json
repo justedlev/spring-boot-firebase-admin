@@ -1,0 +1,116 @@
+{
+  "properties": [
+    {
+      "name": "firebase.apps.default.name",
+      "type": "java.lang.String",
+      "description": "Firebase app name.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties",
+      "defaultValue": "[DEFAULT]"
+    },
+    {
+      "name": "firebase.apps.default.project-id",
+      "type": "java.lang.String",
+      "description": "Google Cloud project ID.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties"
+    },
+    {
+      "name": "firebase.apps.default.credentials",
+      "type": "java.lang.String",
+      "description": "Location of a credentials JSON file, e.g. 'classpath:firebase.json' or 'file:/etc/firebase.json'. Application Default Credentials are used when not set.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties"
+    },
+    {
+      "name": "firebase.apps.default.service-account-id",
+      "type": "java.lang.String",
+      "description": "Service account email used to sign custom tokens.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties"
+    },
+    {
+      "name": "firebase.apps.default.database-auth-variable-override",
+      "type": "java.util.Map<java.lang.String,java.lang.Object>",
+      "description": "Value of the 'auth' variable in Realtime Database security rules.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties"
+    },
+    {
+      "name": "firebase.apps.default.connect-timeout",
+      "type": "java.time.Duration",
+      "description": "Connect timeout for outgoing HTTP connections. Plain numbers are interpreted as milliseconds.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties"
+    },
+    {
+      "name": "firebase.apps.default.read-timeout",
+      "type": "java.time.Duration",
+      "description": "Read timeout for outgoing HTTP connections. Plain numbers are interpreted as milliseconds.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties"
+    },
+    {
+      "name": "firebase.apps.default.write-timeout",
+      "type": "java.time.Duration",
+      "description": "Write timeout for outgoing HTTP connections. Plain numbers are interpreted as milliseconds.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties"
+    },
+    {
+      "name": "firebase.apps.default.auth.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to register a FirebaseAuth bean.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "firebase.apps.default.db.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to register a FirebaseDatabase bean. Only takes effect when 'db.url' is set.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "firebase.apps.default.db.url",
+      "type": "java.lang.String",
+      "description": "The Realtime Database URL, e.g. 'https://<project-id>-default-rtdb.firebaseio.com'.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties"
+    },
+    {
+      "name": "firebase.apps.default.messaging.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to register a FirebaseMessaging bean.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "firebase.apps.default.storage.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to register a StorageClient bean. Only takes effect when 'storage.bucket' is set.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "firebase.apps.default.storage.bucket",
+      "type": "java.lang.String",
+      "description": "The default Cloud Storage bucket name, without the 'gs://' prefix.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties"
+    },
+    {
+      "name": "firebase.apps.default.firestore.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to register a Firestore bean.",
+      "sourceType": "io.github.justedlev.firebase.FirebaseProperties",
+      "defaultValue": false
+    }
+  ],
+  "hints": [
+    {
+      "name": "firebase.apps.keys",
+      "values": [
+        {
+          "value": "default",
+          "description": "The default Firebase app, exposed as the primary FirebaseApp bean."
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    }
+  ]
+}
