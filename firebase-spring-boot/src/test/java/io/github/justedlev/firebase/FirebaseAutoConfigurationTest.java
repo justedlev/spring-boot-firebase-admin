@@ -326,4 +326,62 @@ class FirebaseAutoConfigurationTest {
                     assertThat(context).doesNotHaveBean(Firestore.class);
                 });
     }
+
+    @Test
+    void whenUserProvidesOptionsFactory_thenItIsUsed() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(CustomOptionsFactoryConfiguration.class)
+                .withPropertyValues(
+                        "firebase.apps.default.project-id=ignored",
+                        "firebase.apps.app1.project-id=ignored"
+                )
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    assertThat(context).hasSingleBean(FirebaseOptionsFactory.class);
+                    assertThat(context).doesNotHaveBean("defaultFirebaseOptionsFactory");
+                    assertThat(context.getBean("defaultFirebaseApp", FirebaseApp.class).getOptions().getProjectId())
+                            .isEqualTo("custom-project");
+                    assertThat(context.getBean("app1FirebaseApp", FirebaseApp.class).getOptions().getProjectId())
+                            .isEqualTo("custom-project");
+                });
+    }
+
+    @Test
+    void whenUserProvidesCredentialsFactory_thenDefaultNotCreated() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues("firebase.apps.default.project-id=default-project")
+                .run(context -> {
+                    assertThat(context).hasSingleBean(FirebaseCredentialsFactory.class);
+                    assertThat(context).doesNotHaveBean("defaultFirebaseCredentialsFactory");
+                });
+    }
+
+    @Test
+    void whenTwoAppsShareExplicitName_thenStartupFails() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues(
+                        "firebase.apps.app1.name=same",
+                        "firebase.apps.app1.project-id=app1-project",
+                        "firebase.apps.app2.name=same",
+                        "firebase.apps.app2.project-id=app2-project"
+                )
+                .run(context -> assertThat(context).hasFailed()
+                        .getFailure().rootCause().hasMessageContaining("same"));
+    }
+
+    @Configuration(proxyBeanMethods = false)
+    static class CustomOptionsFactoryConfiguration {
+        @Bean
+        FirebaseOptionsFactory customOptionsFactory() {
+            return properties -> FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.newBuilder().build())
+                    .setProjectId("custom-project")
+                    .build();
+        }
+    }
 }
