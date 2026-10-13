@@ -10,5 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class FirebaseAuthProperties {
+    /**
+     * Whether to register a {@code FirebaseAuth} bean.
+     */
     private boolean enabled;
 }

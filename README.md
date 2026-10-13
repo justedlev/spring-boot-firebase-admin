@@ -2,9 +2,9 @@
 
 # Spring Boot Firebase Admin
 
-[![language](https://img.shields.io/badge/Java%2017-e6892e.svg?logo=openjdk&logoColor=white)](https://github.com/justedlev/bridgewayhub)
+[![language](https://img.shields.io/badge/Java%2017-e6892e.svg?logo=openjdk&logoColor=white)](https://openjdk.org/projects/jdk/17/)
 [![framework](https://img.shields.io/badge/Spring%20Boot%20-6DB33F.svg?logo=springboot&logoColor=white)](https://docs.spring.io/spring-boot/index.html)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.justedlev/spring-boot-firebase-admin?logo=apachemaven&label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.justedlev/firebase-spring-boot-starter?logo=apachemaven&label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.justedlev/firebase-spring-boot-starter)
 [![license](https://img.shields.io/github/license/justedlev/spring-boot-firebase-admin?label=License)](https://github.com/justedlev/spring-boot-firebase-admin)
 [![issues](https://img.shields.io/github/issues/justedlev/spring-boot-firebase-admin)](https://github.com/justedlev/spring-boot-firebase-admin/issues)
 [![stars](https://img.shields.io/github/stars/justedlev/spring-boot-firebase-admin)](https://github.com/justedlev/spring-boot-firebase-admin)
@@ -32,17 +32,17 @@ supersedes, the same way `1.x` and `2.x` were cut.
 
 ### ✨ Features
 
-- ✅ Auto-configures FirebaseApp
-- ✅ Provides ready-to-use beans:
-    - FirebaseAuth
-    - FirebaseDatabase
-    - FirebaseMessaging
-- ✅ Supports multiple credential sources:
-    - classpath
-    - filesystem
-- ✅ Modular and extensible design
-- ✅ Works with multi-module Spring Boot projects
-- ✅ Minimal configuration required
+- ✅ Auto-configures one or more `FirebaseApp`s from `firebase.apps.*`
+- ✅ Opt-in service beans per app:
+    - `FirebaseAuth`
+    - `FirebaseDatabase` (Realtime Database)
+    - `FirebaseMessaging` (Cloud Messaging)
+    - `StorageClient` (Cloud Storage)
+    - `Firestore`
+- ✅ Credentials from the classpath, the filesystem, or
+  [Application Default Credentials](https://cloud.google.com/docs/authentication/application-default-credentials)
+- ✅ Extensible: replace `FirebaseCredentialsFactory` or `FirebaseOptionsFactory` with your own bean
+- ✅ Apps are deleted cleanly on context shutdown (DevTools restarts and test contexts work)
 
 ### 📦 Usage
 
@@ -70,12 +70,12 @@ firebase:
   apps:
     default:
       project-id: <your-project-id>
+      # omit to use Application Default Credentials
+      credentials: classpath:firebase-service-account.json
       auth:
         enabled: true
       db:
-        enabled: true
-      messaging:
-        enabled: false
+        url: https://<your-project-id>-default-rtdb.firebaseio.com
 ```
 
 2. Inject Firebase beans
@@ -88,41 +88,87 @@ firebase:
 public class DemoController {
     private final FirebaseAuth firebaseAuth;
 
-    @GetMapping("/firebase/status")
-    public String status() {
-        return "Firebase initialized: " + (firebaseAuth != null);
+    @GetMapping("/users/{uid}")
+    public String email(@PathVariable String uid) throws FirebaseAuthException {
+        return firebaseAuth.getUser(uid).getEmail();
     }
 }
 ```
 
+### 🧩 Multiple apps
+
+Every key under `firebase.apps` other than `default` registers a `FirebaseApp` bean named
+`<key>FirebaseApp`, plus `<key>FirebaseAuth`, `<key>FirebaseDatabase`, `<key>FirebaseMessaging`,
+`<key>StorageClient` and `<key>Firestore` for the services enabled on it. The Firebase app name defaults to the key.
+
+```yaml
+firebase:
+  apps:
+    default:
+      project-id: main-project
+      auth:
+        enabled: true
+    analytics:
+      project-id: analytics-project
+      credentials: file:/etc/secrets/analytics.json
+      firestore:
+        enabled: true
+```
+
+```java
+public AnalyticsService(@Qualifier("analyticsFirestore") Firestore firestore) { ... }
+```
+
+The `default` app's beans are `@Primary`, so they are injected when no qualifier is given.
+
 ### 📚 Configuration Reference
 
-> [!WARNING]
-> Property marked `*` is required
-
 > [!NOTE]
-> By default, you can use the predefined FirebaseApp properties using `firebase.apps.default.*`
+> `<app>` is any key under `firebase.apps`. `default` is the primary app.
 
-| Property                                                   | Description                                                                                   | Default                                                                   |
-|------------------------------------------------------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| `firebase.enabled`                                         | Enable Firebase integration                                                                   | `true`                                                                    |
-| `firebase.apps.<app-name>.name`*                           | Unique name for the Firebase app                                                              | `[DEFAULT]`                                                               |
-| `firebase.apps.<app-name>.database-auth-variable-override` | The value to use for the `auth` variable in the security rules for Realtime Database actions. | -                                                                         |
-| `firebase.apps.<app-name>.database-url`                    | The Realtime Database URL to use for data storage.                                            | `https://${firebase.apps.default.project-id}-default-rtdb.firebaseio.com` |
-| `firebase.apps.<app-name>.project-id`*                     | Firebase project ID                                                                           | -                                                                         |
-| `firebase.apps.<app-name>.storage-bucket`                  | The full name of an existing Google Cloud Storage bucket, excluding any protocol prefixes     | -                                                                         |
-| `firebase.apps.<app-name>.service-account-id`              | Service account email address string                                                          | -                                                                         |
-| `firebase.apps.<app-name>.credentials`*                    | Credentials used to authenticate the SDK                                                      | `file:${user.home}/.firebase/${firebase.apps.default.project-id}.json`    |
-| `firebase.apps.<app-name>.connect-timeout`                 | Connect timeout                                                                               | -                                                                         |
-| `firebase.apps.<app-name>.read-timeout`                    | Read timeout                                                                                  | -                                                                         |
-| `firebase.apps.<app-name>.write-timeout`                   | Write timeout                                                                                 | -                                                                         |
-| `firebase.apps.<app-name>.auth.enabled`                    | Enabling FirebaseAuth bean                                                                    | `false`                                                                   |
-| `firebase.apps.<app-name>.db.enabled`                      | Enabling FirebaseDatabase bean                                                                | `false`                                                                   |
-| `firebase.apps.<app-name>.messaging.enabled`               | Enabling FirebaseMessaging bean                                                               | `false`                                                                   |
+| Property                                              | Description                                                                                                      | Default                           |
+|-------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|-----------------------------------|
+| `firebase.enabled`                                    | Enable Firebase auto-configuration                                                                               | `true`                            |
+| `firebase.apps.<app>.name`                            | Firebase app name                                                                                                | `[DEFAULT]` for `default`, else the key |
+| `firebase.apps.<app>.project-id`                      | Google Cloud project ID                                                                                          | -                                 |
+| `firebase.apps.<app>.credentials`                     | Credentials JSON location, e.g. `classpath:firebase.json` or `file:/etc/firebase.json`                           | Application Default Credentials   |
+| `firebase.apps.<app>.service-account-id`              | Service account email used to sign custom tokens                                                                 | -                                 |
+| `firebase.apps.<app>.database-auth-variable-override` | Value of the `auth` variable in Realtime Database security rules                                                 | -                                 |
+| `firebase.apps.<app>.connect-timeout`                 | HTTP connect timeout, e.g. `5s` (plain numbers are milliseconds)                                                 | SDK default                       |
+| `firebase.apps.<app>.read-timeout`                    | HTTP read timeout                                                                                                | SDK default                       |
+| `firebase.apps.<app>.write-timeout`                   | HTTP write timeout                                                                                               | SDK default                       |
+| `firebase.apps.<app>.auth.enabled`                    | Register a `FirebaseAuth` bean                                                                                   | `false`                           |
+| `firebase.apps.<app>.db.url`                          | Realtime Database URL; registers a `FirebaseDatabase` bean when set                                             | -                                 |
+| `firebase.apps.<app>.db.enabled`                      | Set to `false` to skip the `FirebaseDatabase` bean even though `db.url` is set                                   | `true`                            |
+| `firebase.apps.<app>.messaging.enabled`               | Register a `FirebaseMessaging` bean                                                                              | `false`                           |
+| `firebase.apps.<app>.storage.bucket`                  | Default Cloud Storage bucket (no `gs://` prefix); registers a `StorageClient` bean when set                     | -                                 |
+| `firebase.apps.<app>.storage.enabled`                 | Set to `false` to skip the `StorageClient` bean even though `storage.bucket` is set                              | `true`                            |
+| `firebase.apps.<app>.firestore.enabled`               | Register a `Firestore` bean                                                                                      | `false`                           |
 
-> [!TIP]
-> When `firebase.apps.<app-name>.database-url` is configured,
-> the `firebase.apps.<app-name>.db.enabled` property is not required.
+### 🧪 Firebase Emulator Suite
+
+The Admin SDK switches to the emulators when `FIREBASE_AUTH_EMULATOR_HOST`, `FIREBASE_DATABASE_EMULATOR_HOST` or
+`FIRESTORE_EMULATOR_HOST` are set (`firebase emulators:exec` sets them for you). Use a `demo-` project ID so nothing
+can reach a real project. `StorageClient` does not support the Storage emulator.
+
+### 🔧 Customization
+
+Declare your own `FirebaseCredentialsFactory` or `FirebaseOptionsFactory` bean to replace the defaults, for example
+to load credentials from a secrets manager:
+
+```java
+
+@Bean
+FirebaseCredentialsFactory firebaseCredentialsFactory(SecretClient secrets) {
+    return properties -> {
+        try (var in = secrets.read(properties.getProjectId())) {
+            return GoogleCredentials.fromStream(in);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    };
+}
+```
 
 ### 🤝 Contributing
 

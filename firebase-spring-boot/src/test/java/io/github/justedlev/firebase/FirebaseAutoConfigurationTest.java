@@ -1,7 +1,9 @@
 package io.github.justedlev.firebase;
 
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.cloud.StorageClient;
 import com.google.firebase.database.FirebaseDatabase;
@@ -11,8 +13,14 @@ import io.github.justedlev.firebase.config.FirebaseConfigurationProperties;
 import io.github.justedlev.firebase.config.FirebaseTestConfiguration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -183,5 +191,197 @@ class FirebaseAutoConfigurationTest {
 
         runner.run(context -> assertThat(context).hasNotFailed());
         runner.run(context -> assertThat(context).hasNotFailed());
+    }
+
+    @Test
+    void whenNamedAppsConfigured_thenFactoriesAreNotInitializedEarly() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class, RecordingPostProcessorConfiguration.class)
+                .withPropertyValues("firebase.apps.app1.project-id=app1-project")
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    assertThat(context.getBean(RecordingPostProcessor.class).processed)
+                            .contains("defaultFirebaseOptionsFactory", "mockFirebaseCredentialsFactory");
+                });
+    }
+
+    @Configuration(proxyBeanMethods = false)
+    static class RecordingPostProcessorConfiguration {
+        @Bean
+        static RecordingPostProcessor recordingPostProcessor() {
+            return new RecordingPostProcessor();
+        }
+    }
+
+    static class RecordingPostProcessor implements BeanPostProcessor {
+        private final Set<String> processed = new HashSet<>();
+
+        @Override
+        public Object postProcessBeforeInitialization(Object bean, String beanName) {
+            processed.add(beanName);
+            return bean;
+        }
+    }
+
+    @Test
+    void whenUserDefinesOwnFirebaseApp_thenServiceBeansUseIt() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(CustomFirebaseAppConfiguration.class)
+                .withPropertyValues("firebase.apps.default.auth.enabled=true")
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    assertThat(context).hasSingleBean(FirebaseApp.class);
+                    assertThat(context).hasSingleBean(FirebaseAuth.class);
+                    assertThat(context.getBean(FirebaseAuth.class))
+                            .isSameAs(FirebaseAuth.getInstance(context.getBean(FirebaseApp.class)));
+                });
+    }
+
+    @Test
+    void whenDatabaseExplicitlyDisabled_thenNoDatabaseBean() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues(
+                        "firebase.apps.default.project-id=default-project",
+                        "firebase.apps.default.db.url=http://localhost:0",
+                        "firebase.apps.default.db.enabled=false",
+                        "firebase.apps.default.storage.bucket=default-bucket",
+                        "firebase.apps.default.storage.enabled=false"
+                )
+                .run(context -> {
+                    assertThat(context).doesNotHaveBean(FirebaseDatabase.class);
+                    assertThat(context).doesNotHaveBean(StorageClient.class);
+                });
+    }
+
+    @Test
+    void propertiesDefaultsMatchAutoConfigurationDefaults() {
+        var props = new FirebaseProperties();
+        assertThat(props.getDb().isEnabled()).isTrue();
+        assertThat(props.getStorage().isEnabled()).isTrue();
+        assertThat(props.getAuth().isEnabled()).isFalse();
+        assertThat(props.getMessaging().isEnabled()).isFalse();
+        assertThat(props.getFirestore().isEnabled()).isFalse();
+    }
+
+    @Configuration(proxyBeanMethods = false)
+    static class CustomFirebaseAppConfiguration {
+        @Bean(destroyMethod = "delete")
+        FirebaseApp myFirebaseApp() {
+            return FirebaseApp.initializeApp(FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.newBuilder().build())
+                    .setProjectId("custom-project")
+                    .build(), "custom");
+        }
+    }
+
+    @Test
+    void whenNamedAppServicesEnabled_thenNamedServiceBeansCreated() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues(
+                        "firebase.apps.default.project-id=default-project",
+                        "firebase.apps.default.auth.enabled=true",
+                        "firebase.apps.app1.project-id=app1-project",
+                        "firebase.apps.app1.db.url=http://localhost:0",
+                        "firebase.apps.app1.auth.enabled=true",
+                        "firebase.apps.app1.messaging.enabled=true",
+                        "firebase.apps.app1.storage.bucket=app1-bucket",
+                        "firebase.apps.app1.firestore.enabled=true"
+                )
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    var app1 = context.getBean("app1FirebaseApp", FirebaseApp.class);
+                    assertThat(context.getBean("app1FirebaseAuth")).isSameAs(FirebaseAuth.getInstance(app1));
+                    assertThat(context.getBean("app1FirebaseDatabase")).isSameAs(FirebaseDatabase.getInstance(app1));
+                    assertThat(context.getBean("app1FirebaseMessaging")).isSameAs(FirebaseMessaging.getInstance(app1));
+                    assertThat(context.getBean("app1StorageClient")).isSameAs(StorageClient.getInstance(app1));
+                    assertThat(context).hasBean("app1Firestore");
+                    // the default app's beans stay injectable by type
+                    var defaultApp = context.getBean("defaultFirebaseApp", FirebaseApp.class);
+                    assertThat(context.getBean(FirebaseAuth.class)).isSameAs(FirebaseAuth.getInstance(defaultApp));
+                });
+    }
+
+    @Test
+    void whenNamedAppServicesNotEnabled_thenNoNamedServiceBeans() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues(
+                        "firebase.apps.app1.project-id=app1-project",
+                        "firebase.apps.app1.db.url=http://localhost:0",
+                        "firebase.apps.app1.db.enabled=false"
+                )
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    assertThat(context).doesNotHaveBean(FirebaseAuth.class);
+                    assertThat(context).doesNotHaveBean(FirebaseDatabase.class);
+                    assertThat(context).doesNotHaveBean(FirebaseMessaging.class);
+                    assertThat(context).doesNotHaveBean(StorageClient.class);
+                    assertThat(context).doesNotHaveBean(Firestore.class);
+                });
+    }
+
+    @Test
+    void whenUserProvidesOptionsFactory_thenItIsUsed() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(CustomOptionsFactoryConfiguration.class)
+                .withPropertyValues(
+                        "firebase.apps.default.project-id=ignored",
+                        "firebase.apps.app1.project-id=ignored"
+                )
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    assertThat(context).hasSingleBean(FirebaseOptionsFactory.class);
+                    assertThat(context).doesNotHaveBean("defaultFirebaseOptionsFactory");
+                    assertThat(context.getBean("defaultFirebaseApp", FirebaseApp.class).getOptions().getProjectId())
+                            .isEqualTo("custom-project");
+                    assertThat(context.getBean("app1FirebaseApp", FirebaseApp.class).getOptions().getProjectId())
+                            .isEqualTo("custom-project");
+                });
+    }
+
+    @Test
+    void whenUserProvidesCredentialsFactory_thenDefaultNotCreated() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues("firebase.apps.default.project-id=default-project")
+                .run(context -> {
+                    assertThat(context).hasSingleBean(FirebaseCredentialsFactory.class);
+                    assertThat(context).doesNotHaveBean("defaultFirebaseCredentialsFactory");
+                });
+    }
+
+    @Test
+    void whenTwoAppsShareExplicitName_thenStartupFails() {
+        new ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(FirebaseAutoConfiguration.class))
+                .withUserConfiguration(FirebaseTestConfiguration.class)
+                .withPropertyValues(
+                        "firebase.apps.app1.name=same",
+                        "firebase.apps.app1.project-id=app1-project",
+                        "firebase.apps.app2.name=same",
+                        "firebase.apps.app2.project-id=app2-project"
+                )
+                .run(context -> assertThat(context).hasFailed()
+                        .getFailure().rootCause().hasMessageContaining("same"));
+    }
+
+    @Configuration(proxyBeanMethods = false)
+    static class CustomOptionsFactoryConfiguration {
+        @Bean
+        FirebaseOptionsFactory customOptionsFactory() {
+            return properties -> FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.newBuilder().build())
+                    .setProjectId("custom-project")
+                    .build();
+        }
     }
 }
