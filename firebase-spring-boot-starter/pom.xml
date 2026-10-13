@@ -24,6 +24,14 @@
                 <!-- Maven Central requires sources and javadoc jars for jar packaging; this starter has no code -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <!-- lets Spring Boot's build plugins leave this empty jar out of executable jars -->
+                            <Spring-Boot-Jar-Type>dependencies-starter</Spring-Boot-Jar-Type>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
                 <executions>
                     <execution>
                         <id>empty-sources-jar</id>
