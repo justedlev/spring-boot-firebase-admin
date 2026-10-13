@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 This project uses **[Conventional Commits](https://www.conventionalcommits.org/)** and is powered by *
 *[release-please](https://github.com/googleapis/release-please)**.
 
+## [1.0.1](https://github.com/justedlev/spring-boot-firebase-admin/compare/spring-boot-firebase-admin-1x-v1.0.0...spring-boot-firebase-admin-1x-v1.0.1) (2026-10-13)
+
+
+### 🐛 Bug Fixes
+
+* register auto-configuration under the name Spring Boot loads ([f3e8c80](https://github.com/justedlev/spring-boot-firebase-admin/commit/f3e8c8014f40735a685f5bc14758d3aa86684cb4))
+* register auto-configuration under the name Spring Boot loads ([8251e88](https://github.com/justedlev/spring-boot-firebase-admin/commit/8251e88689f193a59337b4c56ebd08f43c0e278f))
+
 ## [1.0.0](https://github.com/justedlev/spring-boot-firebase-admin/compare/spring-boot-firebase-admin-1x-v1.0.0...spring-boot-firebase-admin-1x-v1.0.0) (2026-07-06)
 
 
