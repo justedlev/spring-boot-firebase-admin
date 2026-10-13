@@ -5,94 +5,64 @@ All notable changes to this project will be documented in this file.
 This project uses **[Conventional Commits](https://www.conventionalcommits.org/)** and is powered by *
 *[release-please](https://github.com/googleapis/release-please)**.
 
-## [3.0.0](https://github.com/justedlev/spring-boot-firebase-admin/compare/v3.0.0...v3.0.0) (2026-10-13)
+## [3.0.0](https://github.com/justedlev/spring-boot-firebase-admin/compare/46bafc9...v3.0.0) (2026-10-13)
 
 
 ### ⚠ BREAKING CHANGES
 
 * FirebaseProperties connectTimeout/readTimeout/ writeTimeout are now java.time.Duration instead of Integer.
 
+
 ### 🚀 Features
 
-* add configuration metadata for per-app properties ([b5be629](https://github.com/justedlev/spring-boot-firebase-admin/commit/b5be62920c015d726aa7f56bbb81a15e7a5533ca))
 * add configuration metadata for per-app properties ([c27eb00](https://github.com/justedlev/spring-boot-firebase-admin/commit/c27eb006eccfce6f10e826626f6172c96fd234d5))
-* register service beans for named Firebase apps ([8f1da20](https://github.com/justedlev/spring-boot-firebase-admin/commit/8f1da2002ec9a958663bcc64f9e33771d03356c8))
 * register service beans for named Firebase apps ([e456ca4](https://github.com/justedlev/spring-boot-firebase-admin/commit/e456ca442782ee7b77f4ae1ca652623ee7b474cc))
 * use Duration for connect, read and write timeouts ([bc0d430](https://github.com/justedlev/spring-boot-firebase-admin/commit/bc0d430e3e5fabdbb8391cb4ae33eb0edff0b29b))
 
 
 ### 🐛 Bug Fixes
 
-* compile against Spring Boot 4 PropertyMapper API ([8032d49](https://github.com/justedlev/spring-boot-firebase-admin/commit/8032d49367024c4a5b89d34d566ca24c609f740e))
 * compile against Spring Boot 4 PropertyMapper API ([64f4950](https://github.com/justedlev/spring-boot-firebase-admin/commit/64f4950e4435f1db660b19c0500a0297da44d31a))
-* delete FirebaseApp instances when the context closes ([cba7bf0](https://github.com/justedlev/spring-boot-firebase-admin/commit/cba7bf0d8242d458ce3c274026e346fb79c18914))
 * delete FirebaseApp instances when the context closes ([f5a304d](https://github.com/justedlev/spring-boot-firebase-admin/commit/f5a304d9960300f0e1b3055988272a4c04559716))
-* make service bean conditions and property defaults consistent ([bd6eb53](https://github.com/justedlev/spring-boot-firebase-admin/commit/bd6eb530ed32a5aba89b4b47722965f3a67ae4f8))
 * make service bean conditions and property defaults consistent ([777b8cf](https://github.com/justedlev/spring-boot-firebase-admin/commit/777b8cf9c6f2c4cd5eb30045d4418fafa771bbf2))
-* publish the starter as a jar ([9509dd9](https://github.com/justedlev/spring-boot-firebase-admin/commit/9509dd9c81e6efe919dbfad16530efd73a3ae119))
 * publish the starter as a jar ([194ce09](https://github.com/justedlev/spring-boot-firebase-admin/commit/194ce0966c2e0bd06a49e4adf35e29bb57f75291))
-* register auto-configuration under the name Spring Boot loads ([b282e11](https://github.com/justedlev/spring-boot-firebase-admin/commit/b282e1159b893331c50468130fe9ff5fa364a180))
 * register auto-configuration under the name Spring Boot loads ([331b7da](https://github.com/justedlev/spring-boot-firebase-admin/commit/331b7dabe56a2bf9ab7a7a3755d8c2f3a5b4d353))
-* register auto-configuration under the name Spring Boot loads ([06a763f](https://github.com/justedlev/spring-boot-firebase-admin/commit/06a763ff8a990a78a09b577150121b5a02309ea1))
-* stop shipping application.yaml in the library jar ([5dd4475](https://github.com/justedlev/spring-boot-firebase-admin/commit/5dd447574bc58a77e866067d0a583cff79174b24))
 * stop shipping application.yaml in the library jar ([8402b10](https://github.com/justedlev/spring-boot-firebase-admin/commit/8402b10081500e3c0dd8272a5add1482a3d9d795))
 
 
 ### ♻️ Refactoring
 
-* resolve FirebaseOptionsFactory lazily for named apps ([62fd1ce](https://github.com/justedlev/spring-boot-firebase-admin/commit/62fd1cef6704dc28bc13092f8a22e64aa03e17c2))
 * resolve FirebaseOptionsFactory lazily for named apps ([e5c941d](https://github.com/justedlev/spring-boot-firebase-admin/commit/e5c941d445fb45902f08ebd5d6d97243e225bd0d))
 
 
 ### 📚 Documentation
 
-* sync README with the current configuration model ([071b70f](https://github.com/justedlev/spring-boot-firebase-admin/commit/071b70fa1988f882d34a0d863adfe4eb6ab50ea4))
 * sync README with the current configuration model ([87823a4](https://github.com/justedlev/spring-boot-firebase-admin/commit/87823a48070231d793c31668d06daaf4f437b20d))
 * update README.md ([f01650c](https://github.com/justedlev/spring-boot-firebase-admin/commit/f01650ccab97ee95a5bdf1e5792eaf720a20e1b5))
 
 
 ### 🧪 Tests
 
-* add integration tests against the Firebase Emulator Suite ([7488ef9](https://github.com/justedlev/spring-boot-firebase-admin/commit/7488ef99b57ed0d8296bd9ce660efd0b70b940b2))
 * add integration tests against the Firebase Emulator Suite ([a870273](https://github.com/justedlev/spring-boot-firebase-admin/commit/a8702733592339144c5b25da8be4891167362815))
-* cover factory overrides and duplicate app names ([930667d](https://github.com/justedlev/spring-boot-firebase-admin/commit/930667dd445eb4df2cb7cc9a333516c5530d779c))
 * cover factory overrides and duplicate app names ([03b19d8](https://github.com/justedlev/spring-boot-firebase-admin/commit/03b19d84d955b9cbae8330ff2a38de9899bd2584))
-
-
-### 🧹 Chores
-
-* release 3.0.0 ([81c483d](https://github.com/justedlev/spring-boot-firebase-admin/commit/81c483d451374b33ce1f4b962bb33e65d09ad350))
 
 
 ### ⚙️ Build
 
-* **deps-dev:** bump org.apache.maven.plugins:maven-compiler-plugin ([19e3c7c](https://github.com/justedlev/spring-boot-firebase-admin/commit/19e3c7c9caba17a5864bf897b8f520a44483301c))
-* **deps-dev:** bump org.apache.maven.plugins:maven-compiler-plugin ([ff5160f](https://github.com/justedlev/spring-boot-firebase-admin/commit/ff5160fc3222363a0fea215a33bd7ea43e06c7a6))
 * **deps-dev:** bump org.apache.maven.plugins:maven-compiler-plugin from 3.14.0 to 3.15.0 ([915086a](https://github.com/justedlev/spring-boot-firebase-admin/commit/915086a76ece80bb74affe396ff14f3723aeb8cf))
 * **deps-dev:** bump org.apache.maven.plugins:maven-compiler-plugin from 3.15.0 to 3.16.0 ([fe42377](https://github.com/justedlev/spring-boot-firebase-admin/commit/fe42377400db3ce5cf530c016a9c861b6cb07634))
-* **deps-dev:** bump org.apache.maven.plugins:maven-gpg-plugin ([eef3308](https://github.com/justedlev/spring-boot-firebase-admin/commit/eef3308480b5cb0505ba3d07283593884dfe55c6))
 * **deps-dev:** bump org.apache.maven.plugins:maven-gpg-plugin from 3.2.7 to 3.2.8 ([9de317d](https://github.com/justedlev/spring-boot-firebase-admin/commit/9de317d6ca3d9e95d7542ba7007239e8dd404425))
-* **deps-dev:** bump org.apache.maven.plugins:maven-jar-plugin ([30cf3cf](https://github.com/justedlev/spring-boot-firebase-admin/commit/30cf3cfd4cce7dc838143f8560dee362e4aa2f68))
 * **deps-dev:** bump org.apache.maven.plugins:maven-jar-plugin from 3.5.0 to 3.5.1 ([68a774b](https://github.com/justedlev/spring-boot-firebase-admin/commit/68a774b6a76f04b5a73caf10badab0eab31a6ccb))
-* **deps-dev:** bump org.apache.maven.plugins:maven-javadoc-plugin ([c17e2e1](https://github.com/justedlev/spring-boot-firebase-admin/commit/c17e2e1dfc05e775340aa93af0945d6ed1351319))
 * **deps-dev:** bump org.apache.maven.plugins:maven-javadoc-plugin from 3.10.0 to 3.12.0 ([e2aa155](https://github.com/justedlev/spring-boot-firebase-admin/commit/e2aa155f6ea86c1ff8dd65df1e7dfae575f68d40))
-* **deps-dev:** bump org.apache.maven.plugins:maven-release-plugin ([ff07683](https://github.com/justedlev/spring-boot-firebase-admin/commit/ff07683d60e6d1c22e096eba9b01af374578e06c))
 * **deps-dev:** bump org.apache.maven.plugins:maven-release-plugin from 3.1.1 to 3.3.1 ([ab8d23c](https://github.com/justedlev/spring-boot-firebase-admin/commit/ab8d23ceb58ec7c3b5a4585c4fe0ac68dff611a4))
-* **deps-dev:** bump org.sonatype.central:central-publishing-maven-plugin ([be4c9b5](https://github.com/justedlev/spring-boot-firebase-admin/commit/be4c9b5ae6d9fd6e801f2650fbff61ce17c41d7d))
 * **deps-dev:** bump org.sonatype.central:central-publishing-maven-plugin from 0.10.0 to 0.11.0 ([6b95082](https://github.com/justedlev/spring-boot-firebase-admin/commit/6b95082ed5c20f49d274e0d1e6f20cfc9c332a5f))
-* **deps:** bump com.google.firebase:firebase-admin ([e4c6a4d](https://github.com/justedlev/spring-boot-firebase-admin/commit/e4c6a4d90a732ad668216ee4d409a724a0513779))
-* **deps:** bump com.google.firebase:firebase-admin ([40ae8bf](https://github.com/justedlev/spring-boot-firebase-admin/commit/40ae8bf6d0f909a9653e6521405cbb5d16451204))
 * **deps:** bump com.google.firebase:firebase-admin from 9.10.0 to 9.11.0 ([d541803](https://github.com/justedlev/spring-boot-firebase-admin/commit/d5418039e304311357248533dd3791271b3b35ff))
 * **deps:** bump com.google.firebase:firebase-admin from 9.9.0 to 9.10.0 ([58a7920](https://github.com/justedlev/spring-boot-firebase-admin/commit/58a7920a3bc4c72b4b2ee2bea8b5ca7d6fae1c2a))
-* **deps:** bump org.apache.maven:apache-maven from 3.9.14 to 3.9.16 ([84e6e96](https://github.com/justedlev/spring-boot-firebase-admin/commit/84e6e96bd1f01ee70d38f81c52de102a6eb5fc37))
 * **deps:** bump org.apache.maven:apache-maven from 3.9.14 to 3.9.16 ([b7eae2b](https://github.com/justedlev/spring-boot-firebase-admin/commit/b7eae2ba30f1897182fef8a9bdfac4b043e55708))
-* **deps:** bump org.apache.maven:apache-maven from 3.9.16 to 3.10.0 ([492e8da](https://github.com/justedlev/spring-boot-firebase-admin/commit/492e8dac853c03c86621587bd119aaef2eed5a74))
 * **deps:** bump org.apache.maven:apache-maven from 3.9.16 to 3.10.0 ([1576de2](https://github.com/justedlev/spring-boot-firebase-admin/commit/1576de2a090dd1f2eb76d3e25add4ce85ed8af42))
-* **deps:** bump org.springframework.boot:spring-boot-dependencies ([4f03ac4](https://github.com/justedlev/spring-boot-firebase-admin/commit/4f03ac49914238e5f94b18adcbe2e612b3e18888))
 * **deps:** bump org.springframework.boot:spring-boot-dependencies from 4.1.0 to 4.1.1 ([cee56a6](https://github.com/justedlev/spring-boot-firebase-admin/commit/cee56a63f2a50d75f77756f7bef050f4a0d19202))
 * drop the starter's placeholder README ([0aa22e5](https://github.com/justedlev/spring-boot-firebase-admin/commit/0aa22e5e936660be39acf0cd5ebf1c8aca55f4f3))
 * mark the starter jar as a Spring Boot dependencies starter ([df41a1b](https://github.com/justedlev/spring-boot-firebase-admin/commit/df41a1b9a5a40175cadf4f849eab775d8a2cde95))
-* modernize compiler, Lombok and javadoc configuration ([13baecd](https://github.com/justedlev/spring-boot-firebase-admin/commit/13baecdc59a44444ffbf8fed3fccbce656342927))
 * modernize compiler, Lombok and javadoc configuration ([eaed6f5](https://github.com/justedlev/spring-boot-firebase-admin/commit/eaed6f5b0f664efbc7646e65c1619762e49b943b))
 
 ## 3.0.0 — first tag (2026-07-06, never published to Maven Central)
