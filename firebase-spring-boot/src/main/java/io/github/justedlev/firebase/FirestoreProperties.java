@@ -10,5 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class FirestoreProperties {
+    /**
+     * Whether to register a {@code Firestore} bean.
+     */
     private boolean enabled;
 }
