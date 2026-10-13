@@ -60,6 +60,7 @@ public class FirebaseAutoConfiguration {
     }
 
     @Bean
+    @Primary
     @ConditionalOnSingleCandidate(FirebaseApp.class)
     @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.db", value = "enabled", matchIfMissing = true)
     @ConditionalOnProperty(prefix = PREFIX, value = "apps.default.db.url")
@@ -68,6 +69,7 @@ public class FirebaseAutoConfiguration {
     }
 
     @Bean
+    @Primary
     @ConditionalOnSingleCandidate(FirebaseApp.class)
     @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.auth", value = "enabled")
     public FirebaseAuth defaultFirebaseAuth(FirebaseApp firebaseApp) {
@@ -75,6 +77,7 @@ public class FirebaseAutoConfiguration {
     }
 
     @Bean
+    @Primary
     @ConditionalOnSingleCandidate(FirebaseApp.class)
     @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.messaging", value = "enabled")
     public FirebaseMessaging defaultFirebaseMessaging(FirebaseApp firebaseApp) {
@@ -82,6 +85,7 @@ public class FirebaseAutoConfiguration {
     }
 
     @Bean
+    @Primary
     @ConditionalOnSingleCandidate(FirebaseApp.class)
     @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.storage", value = "enabled", matchIfMissing = true)
     @ConditionalOnProperty(prefix = PREFIX, value = "apps.default.storage.bucket")
@@ -90,6 +94,7 @@ public class FirebaseAutoConfiguration {
     }
 
     @Bean
+    @Primary
     @ConditionalOnSingleCandidate(FirebaseApp.class)
     @ConditionalOnBooleanProperty(prefix = PREFIX + ".apps.default.firestore", value = "enabled")
     public Firestore defaultFirestore(FirebaseApp firebaseApp) {
