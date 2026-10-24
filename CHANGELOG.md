@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 This project uses **[Conventional Commits](https://www.conventionalcommits.org/)** and is powered by *
 *[release-please](https://github.com/googleapis/release-please)**.
 
+## [1.0.2](https://github.com/justedlev/spring-boot-firebase-admin/compare/v1.0.1...v1.0.2) (2026-10-24)
+
+
+### 🐛 Bug Fixes
+
+* publish the starter as a jar ([a65ff9f](https://github.com/justedlev/spring-boot-firebase-admin/commit/a65ff9f0863fa1182bb208f53c249598203f3302))
+* publish the starter as a jar (1.x) ([c4939a3](https://github.com/justedlev/spring-boot-firebase-admin/commit/c4939a3b9be4b7c72f6f8ef29ab33345c94c3125))
+
+
+### 📚 Documentation
+
+* remove duplicated 1.0.0 changelog entry ([1bf66b5](https://github.com/justedlev/spring-boot-firebase-admin/commit/1bf66b5bece3db9778cbb6fcddc5cd80ca1fa939))
+* remove duplicated 1.0.0 changelog entry ([1c8749f](https://github.com/justedlev/spring-boot-firebase-admin/commit/1c8749ffe8d00405334b5c57e556814372e56b78))
+
+
+### ⚙️ Build
+
+* publish Central deployments automatically ([85d128d](https://github.com/justedlev/spring-boot-firebase-admin/commit/85d128db7596478a39dd0c18905aa14282d5daef))
+
 ## [1.0.1](https://github.com/justedlev/spring-boot-firebase-admin/compare/v1.0.0...v1.0.1) (2026-10-13)
 
 
