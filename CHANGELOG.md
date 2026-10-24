@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 This project uses **[Conventional Commits](https://www.conventionalcommits.org/)** and is powered by *
 *[release-please](https://github.com/googleapis/release-please)**.
 
+## [3.0.2](https://github.com/justedlev/spring-boot-firebase-admin/compare/v3.0.1...v3.0.2) (2026-10-24)
+
+
+### 🐛 Bug Fixes
+
+* build releases with Maven 3.9 so Central accepts the bundle ([6029752](https://github.com/justedlev/spring-boot-firebase-admin/commit/6029752ea3826c5c3a6985b69157b6f572bf23d0))
+* build releases with Maven 3.9 so Central accepts the bundle ([4395491](https://github.com/justedlev/spring-boot-firebase-admin/commit/43954913cbaba091eba7782c9bce62cd6f5d47cf))
+
 ## [3.0.1](https://github.com/justedlev/spring-boot-firebase-admin/compare/v3.0.0...v3.0.1) (2026-10-24)
 
 
