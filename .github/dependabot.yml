@@ -12,6 +12,11 @@ updates:
       - "lang: java"
     schedule:
       interval: "weekly"
+    ignore:
+      # Maven 3.10 adds maven-metadata-local.xml and _remote.repositories to the
+      # central-publishing bundle, and Maven Central rejects it
+      - dependency-name: "org.apache.maven:apache-maven"
+        versions: [ ">= 3.10" ]
 
   - package-ecosystem: "github-actions"
     directory: "/"
