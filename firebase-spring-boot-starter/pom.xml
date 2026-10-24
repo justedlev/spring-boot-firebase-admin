@@ -9,7 +9,6 @@
     </parent>
     <artifactId>firebase-spring-boot-starter</artifactId>
     <name>Spring Boot starter Firebase</name>
-    <packaging>pom</packaging>
 
     <dependencies>
         <dependency>
@@ -18,5 +17,71 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Maven Central requires sources and javadoc jars for jar packaging; this starter has no code -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <!-- lets Spring Boot's build plugins leave this empty jar out of executable jars -->
+                            <Spring-Boot-Jar-Type>dependencies-starter</Spring-Boot-Jar-Type>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>empty-sources-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>sources</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>empty-javadoc-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>javadoc</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- consumers resolve the starter as a jar; fail the build if one is not produced -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>require-starter-jars</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireFilesExist>
+                                    <files>
+                                        <file>${project.build.directory}/${project.build.finalName}.jar</file>
+                                        <file>${project.build.directory}/${project.build.finalName}-sources.jar</file>
+                                        <file>${project.build.directory}/${project.build.finalName}-javadoc.jar</file>
+                                    </files>
+                                </requireFilesExist>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
