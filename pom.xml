@@ -229,6 +229,9 @@
                         <extensions>true</extensions>
                         <configuration>
                             <deploymentName>${project.build.finalName}</deploymentName>
+                            <!-- the defaults stop at VALIDATED and leave the deployment unpublished -->
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
                         </configuration>
                     </plugin>
                     <plugin>
