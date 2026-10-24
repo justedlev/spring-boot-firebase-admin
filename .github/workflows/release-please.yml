@@ -3,12 +3,8 @@ name: 🚀 Release
 on:
   push:
     branches: [ 1.x ]
-    paths-ignore:
-      - ".github"
-      - "docs/**"
-      - ".gitattributes"
-      - ".gitignore"
-      - "**.md"
+    # no paths-ignore: merging a release PR that only touches CHANGELOG.md and the manifest must
+    # still run release-please to tag it; exclude-paths in release-please-config.json filters commits
   release:
     types: [ created ]
   workflow_dispatch:
